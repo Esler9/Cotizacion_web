@@ -1,0 +1,11 @@
+# public/.htaccess
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /cotizador/
+
+# Si el archivo o carpeta existe, servirlo directamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# En caso contrario, redirigir todo a index.php
+RewriteRule ^ index.php [L]
