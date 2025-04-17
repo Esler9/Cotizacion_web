@@ -1,5 +1,4 @@
-### generate_pdf.php
-```php
+
 <?php
 require 'fpdf/fpdf.php';
 session_start();
