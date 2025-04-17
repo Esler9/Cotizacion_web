@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Paso 1: Tipo de Sitio</title>
-  <link rel="stylesheet" href="/public/assets/css/general.css">
-  <link rel="stylesheet" href="/public/assets/css/index.css">
+  <link rel="stylesheet" href="/assets/css/general.css">
+  <link rel="stylesheet" href="/assets/css/index.css">
 </head>
 <body>
   <div class="container">
