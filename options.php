@@ -1,12 +1,10 @@
 <?php
 session_start();
-// Si no hay selección previa, regresar a index.php
 if (!isset($_SESSION['site_type'])) {
     header('Location: index.php');
     exit;
 }
 
-// Opciones y precios
 $options = [
     'design' => [
         ['id'=>'personalizado','label'=>'Diseño Personalizado','price'=>400],
@@ -50,30 +48,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <div class="container">
     <h1>Selecciona tus Opciones</h1>
-    <form method="post" action="">
-      <?php foreach ($options as $group => $items): ?>
-        <fieldset>
-          <legend><?php echo ucfirst($group); ?></legend>
-          <?php foreach ($items as $opt): ?>
-            <label>
-              <input type="checkbox" name="<?php echo $group; ?>[]" value="<?php echo $opt['id']; ?>">
-              <?php echo $opt['label']; ?><?php if ($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?>
-            </label><br>
-          <?php endforeach; ?>
-        </fieldset>
-        <br>
-      <?php endforeach; ?>
+    <form method="post">
+
       <div class="form-group">
-        <label for="extra_pages">Páginas adicionales (Q100 c/u):</label>
-        <input type="number" id="extra_pages" name="extra_pages" min="0" value="0">
+        <label for="design">Tipo de Diseño:</label>
+        <select name="design" id="design" required>
+          <?php foreach ($options['design'] as $opt): ?>
+            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></option>
+          <?php endforeach; ?>
+        </select>
       </div>
+
+      <fieldset>
+        <legend>Páginas Adicionales</legend>
+        <?php foreach ($options['extras'] as $opt): ?>
+          <label>
+            <input type="checkbox" name="extras[]" value="<?= $opt['id']; ?>">
+            <?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)
+          </label><br>
+        <?php endforeach; ?>
+        <label for="extra_pages">Otras páginas avanzadas (Q100 p/u):</label>
+        <input type="number" id="extra_pages" name="extra_pages" min="0" value="0">
+      </fieldset>
+
+      <div class="form-group">
+        <label for="seo">SEO:</label>
+        <select name="seo" id="seo">
+          <?php foreach ($options['seo'] as $opt): ?>
+            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="branding">Branding:</label>
+        <select name="branding" id="branding">
+          <?php foreach ($options['branding'] as $opt): ?>
+            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="hosting">Dominio y Hosting:</label>
+        <select name="hosting" id="hosting">
+          <?php foreach ($options['hosting'] as $opt): ?>
+            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
       <div class="form-group">
         <label for="products">Productos (50 incluidos, +50 = Q100):</label>
         <input type="number" id="products" name="products" step="50" min="50" value="50">
       </div>
+
       <button type="submit" class="btn">Generar Cotización</button>
     </form>
   </div>
 </body>
 </html>
-```  
