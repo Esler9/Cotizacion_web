@@ -1,0 +1,13 @@
+# forza mostrar public/index.php como raíz
+DirectoryIndex public/index.php
+
+RewriteEngine On
+RewriteBase /cotizador/
+
+# Si es un archivo o carpeta existente, sírvelo directamente
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# En otro caso, reescribe la petición hacia public/
+RewriteRule ^(.*)$ public/$1 [L,QSA]
