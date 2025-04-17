@@ -1,70 +1,82 @@
-
 <?php
 require 'fpdf/fpdf.php';
 session_start();
-// Validar flujo
 if (!isset($_SESSION['site_type'], $_SESSION['options'])) {
     header('Location: index.php');
     exit;
 }
 
-// Precios base según tipo
-$base_prices = ['informativa'=>200, 'ecommerce'=>400];
+// Precios base
+$base_prices = ['informativa'=>400, 'ecommerce'=>800, 'scalable'=>3999];
 
-// Definir extras con sus precios
-defined('EXTRA_PER_PAGE') or define('EXTRA_PER_PAGE', 100);
-defined('EXTRA_PER_50_PRODUCTS') or define('EXTRA_PER_50_PRODUCTS', 100);
+// Constantes
+defined('Q_PER_EXTRA_PAGE') or define('Q_PER_EXTRA_PAGE', 100);
+defined('Q_PER_EXTRA_PRODUCTS') or define('Q_PER_EXTRA_PRODUCTS', 100);
 
-// Mapeo de todos los precios
-define('PRICES', [
-    'design_personalizado' => 400,
-    'branding_logo_basico' => 350,
-    'branding_icono_profesional' => 2300,
-    'seo_intermedio' => 300,
-    'seo_avanzado' => 950,
-    'hosting_dominio' => 250,
-    'hosting_compartido' => 250,
-    'hosting_profesional' => 800,
-    'hosting_avanzado' => 1300,
-    'extras_perfil' => 200,
-    'extras_login' => 150,
-    'extras_busqueda' => 150
-]);
+// Precios adicionales (mapeo)
+$map = [
+    'design_basica'=>0,
+    'design_personalizado'=>400,
+    'design_profesional'=>1500,
+    'extras_perfil'=>200,
+    'extras_login'=>150,
+    'extras_busqueda'=>150,
+    'products_range_50'=>0,
+    'products_range_50-200'=>250,
+    'products_range_200-500'=>650,
+    'products_range_500-1000'=>1450,
+    'seo_basico'=>0,
+    'seo_intermedio'=>300,
+    'seo_avanzado'=>950,
+    'branding_none'=>0,
+    'branding_logo_basico'=>350,
+    'branding_icono_profesional'=>2300,
+    'domain_none'=>0,
+    'domain_dominio'=>250,
+    'hosting_none'=>0,
+    'hosting_compartido'=>250,
+    'hosting_profesional'=>800,
+    'hosting_avanzado'=>1300
+];
 
-// Armar items y calcular total
+// Armar items y total
 $items = [];
 $total = 0;
-
-// Base
 $type = $_SESSION['site_type'];
-$items[] = ['desc'=>"Tipo de página: $type", 'price'=>$base_prices[$type]];
+$items[] = ['desc'=>"Tipo de sitio: " . ucfirst($type), 'price'=>$base_prices[$type]];
 $total += $base_prices[$type];
 
-// Opciones seleccionadas
-foreach ($_SESSION['options'] as $group => $selections) {
-    if (!is_array($selections)) continue;
-    foreach ($selections as $sel) {
-        $key = "{$group}_{$sel}";
-        if (isset(PRICES[$key])) {
-            $items[] = ['desc'=>ucfirst($sel), 'price'=>PRICES[$key]];
-            $total += PRICES[$key];
+foreach ($_SESSION['options'] as $group => $val) {
+    if (is_array($val)) {
+        foreach ($val as $v) {
+            $key = "{$group}_{$v}";
+            if (isset($map[$key])) {
+                $items[] = ['desc'=> ucfirst(str_replace(["_","-"]," ",$v)) , 'price'=>$map[$key]];
+                $total += $map[$key];
+            }
+        }
+    } else {
+        $key = "{$group}_{$val}";
+        if (isset($map[$key])) {
+            $items[] = ['desc'=> ucfirst(str_replace(["_","-"]," ",$val)) , 'price'=>$map[$key]];
+            $total += $map[$key];
         }
     }
 }
 
-// Páginas adicionales
+// Extra páginas
 $extra_pages = (int)($_SESSION['options']['extra_pages'] ?? 0);
-if ($extra_pages>0) {
-    $items[] = ['desc'=>"Páginas adicionales ($extra_pages)", 'price'=>EXTRA_PER_PAGE*$extra_pages];
-    $total += EXTRA_PER_PAGE*$extra_pages;
+if ($extra_pages > 0) {
+    $items[] = ['desc'=>"Páginas extra ($extra_pages)", 'price'=>Q_PER_EXTRA_PAGE * $extra_pages];
+    $total += Q_PER_EXTRA_PAGE * $extra_pages;
 }
 
-// Productos extras
-$products = (int)($_SESSION['options']['products'] ?? 50);
-if ($products>50) {
-    $blocks = floor(($products-50)/50);
-    $items[] = ['desc'=>"Productos adicionales (".(50*$blocks).")", 'price'=>EXTRA_PER_50_PRODUCTS*$blocks];
-    $total += EXTRA_PER_50_PRODUCTS*$blocks;
+// Extra productos
+$extra_products = (int)($_SESSION['options']['extra_products'] ?? 0);
+if ($extra_products > 0) {
+    $blocks = $extra_products / 50;
+    $items[] = ['desc'=>"Productos extra (".$extra_products.")", 'price'=>Q_PER_EXTRA_PRODUCTS * $blocks];
+    $total += Q_PER_EXTRA_PRODUCTS * $blocks;
 }
 
 // Generar PDF
@@ -83,5 +95,4 @@ $pdf->SetFont('Arial','B',12);
 $pdf->Cell(140,8,'Total',0,0);
 $pdf->Cell(0,8,'Q'.number_format($total,2),0,1,'R');
 
-// Descargar PDF
 $pdf->Output('D','cotizacion.pdf');
