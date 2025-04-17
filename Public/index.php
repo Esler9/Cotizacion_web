@@ -1,10 +1,8 @@
 <?php
-// Depuración rápida
+// Depuración PHP
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-// Autoload
-require __DIR__ . '/../vendor/autoload.php';
 
 // Autoload de Composer
 require __DIR__ . '/../vendor/autoload.php';
