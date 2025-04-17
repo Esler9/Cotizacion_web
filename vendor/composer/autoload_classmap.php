@@ -6,6 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\controllers\\OptionsController' => $baseDir . '/app/controllers/OptionsController.php',
+    'App\\controllers\\PdfController' => $baseDir . '/app/controllers/PdfController.php',
+    'App\\controllers\\SiteTypeController' => $baseDir . '/app/controllers/SiteTypeController.php',
+    'App\\models\\Quote' => $baseDir . '/app/models/Quote.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'FPDF' => $vendorDir . '/setasign/fpdf/fpdf.php',
 );

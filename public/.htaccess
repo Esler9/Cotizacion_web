@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /cotizador/
+
+# Si el recurso existe, sírvelo
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# En otro caso, redirige a index.php
+RewriteRule ^ index.php [L,QSA]

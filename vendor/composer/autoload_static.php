@@ -21,6 +21,10 @@ class ComposerStaticInit0f8926a895504da74d81db03eb8eb7aa
     );
 
     public static $classMap = array (
+        'App\\controllers\\OptionsController' => __DIR__ . '/../..' . '/app/controllers/OptionsController.php',
+        'App\\controllers\\PdfController' => __DIR__ . '/../..' . '/app/controllers/PdfController.php',
+        'App\\controllers\\SiteTypeController' => __DIR__ . '/../..' . '/app/controllers/SiteTypeController.php',
+        'App\\models\\Quote' => __DIR__ . '/../..' . '/app/models/Quote.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'FPDF' => __DIR__ . '/..' . '/setasign/fpdf/fpdf.php',
     );
