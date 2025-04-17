@@ -46,15 +46,17 @@
       <!-- Diseño -->
       <div id="design" class="tab-content active">
         <div class="options-grid">
-          <?php foreach ($options['design'] as $opt): ?>
-            <label class="option-card">
-              <input type="radio" name="design" value="<?= $opt['id']; ?>" required>
-              <span class="option-title"><?= $opt['label']; ?></span>
-              <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2); ?></span>
-              <?php endif; ?>
-            </label>
-          <?php endforeach; ?>
+          <?php if (isset($options['design'])): ?>
+            <?php foreach ($options['design'] as $opt): ?>
+              <label class="option-card">
+                <input type="radio" name="design" value="<?= $opt['id']; ?>" required>
+                <span class="option-title"><?= $opt['label']; ?></span>
+                <?php if ($opt['price'] > 0): ?>
+                  <span class="price">Q<?= number_format($opt['price'],2); ?></span>
+                <?php endif; ?>
+              </label>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </div>
       </div>
 
