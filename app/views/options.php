@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Paso 2: Detalles</title>
-  <link rel="stylesheet" href="/css/general.css">
-  <link rel="stylesheet" href="/css/options.css">
+  <link rel="stylesheet" href="/public/assets/css/general.css">
+  <link rel="stylesheet" href="/public/assets/css/options.css"> 
   <style>
     /* Wizard tabs */
     .tabs { display: flex; border-bottom:2px solid #eee; margin-bottom:var(--spacing); }
@@ -163,6 +163,6 @@
     </form>
   </div>
 
-  <script src="/js/options.js"></script>
+  <script src="/public/assets/js/options.js"></script>
 </body>
 </html>
