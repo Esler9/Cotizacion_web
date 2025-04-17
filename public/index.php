@@ -9,9 +9,9 @@ error_reporting(E_ALL);
 // 2. Autoload de Composer
 require __DIR__ . '/../vendor/autoload.php';
 
-use App\Controllers\SiteTypeController;
-use App\Controllers\OptionsController;
-use App\Controllers\PdfController;
+use App\controllers\SiteTypeController;
+use App\controllers\OptionsController;
+use App\controllers\PdfController;
 
 // 3. Inicia sesión para mantener el flujo
 session_start();
