@@ -4,7 +4,6 @@ if (!isset($_SESSION['site_type'])) {
     header('Location: index.php');
     exit;
 }
-
 $options = [
     'design' => [
         ['id'=>'personalizado','label'=>'Diseño Personalizado','price'=>400],
@@ -31,7 +30,6 @@ $options = [
         ['id'=>'avanzado','label'=>'Hosting Avanzado','price'=>1300]
     ]
 ];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['options'] = $_POST;
     header('Location: generate_pdf.php');
@@ -50,57 +48,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Selecciona tus Opciones</h1>
     <form method="post">
 
-      <div class="form-group">
-        <label for="design">Tipo de Diseño:</label>
-        <select name="design" id="design" required>
-          <?php foreach ($options['design'] as $opt): ?>
-            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></option>
-          <?php endforeach; ?>
-        </select>
+      <div class="section">
+        <h2>Tipo de Diseño</h2>
+        <?php foreach ($options['design'] as $opt): ?>
+          <label class="radio-option">
+            <input type="radio" name="design" value="<?= $opt['id']; ?>" required>
+            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
+          </label>
+        <?php endforeach; ?>
       </div>
 
-      <fieldset>
-        <legend>Páginas Adicionales</legend>
+      <div class="section">
+        <h2>Páginas Adicionales</h2>
         <?php foreach ($options['extras'] as $opt): ?>
-          <label>
+          <label class="checkbox-option">
             <input type="checkbox" name="extras[]" value="<?= $opt['id']; ?>">
-            <?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)
+            <span><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</span>
           </label><br>
         <?php endforeach; ?>
-        <label for="extra_pages">Otras páginas avanzadas (Q100 p/u):</label>
-        <input type="number" id="extra_pages" name="extra_pages" min="0" value="0">
-      </fieldset>
+        <label class="form-group">
+          <span>Otras páginas avanzadas (Q100 p/u):</span>
+          <input type="number" name="extra_pages" min="0" value="0">
+        </label>
+      </div>
 
-      <div class="form-group">
-        <label for="seo">SEO:</label>
-        <select name="seo" id="seo">
-          <?php foreach ($options['seo'] as $opt): ?>
-            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></option>
-          <?php endforeach; ?>
-        </select>
+      <div class="section">
+        <h2>SEO</h2>
+        <?php foreach ($options['seo'] as $opt): ?>
+          <label class="radio-option">
+            <input type="radio" name="seo" value="<?= $opt['id']; ?>" <?php echo $opt['id']==='basico'?'checked':''; ?>>
+            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
+          </label>
+        <?php endforeach; ?>
+      </div>
+
+      <div class="section">
+        <h2>Branding</h2>
+        <?php foreach ($options['branding'] as $opt): ?>
+          <label class="radio-option">
+            <input type="radio" name="branding" value="<?= $opt['id']; ?>">
+            <span><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</span>
+          </label>
+        <?php endforeach; ?>
+      </div>
+
+      <div class="section">
+        <h2>Dominio y Hosting</h2>
+        <?php foreach ($options['hosting'] as $opt): ?>
+          <label class="radio-option">
+            <input type="radio" name="hosting" value="<?= $opt['id']; ?>">
+            <span><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</span>
+          </label>
+        <?php endforeach; ?>
       </div>
 
       <div class="form-group">
-        <label for="branding">Branding:</label>
-        <select name="branding" id="branding">
-          <?php foreach ($options['branding'] as $opt): ?>
-            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="hosting">Dominio y Hosting:</label>
-        <select name="hosting" id="hosting">
-          <?php foreach ($options['hosting'] as $opt): ?>
-            <option value="<?= $opt['id']; ?>"><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="products">Productos (50 incluidos, +50 = Q100):</label>
-        <input type="number" id="products" name="products" step="50" min="50" value="50">
+        <label>
+          <span>Productos (50 incluidos, +50 = Q100):</span>
+          <input type="number" name="products" step="50" min="50" value="50">
+        </label>
       </div>
 
       <button type="submit" class="btn">Generar Cotización</button>
