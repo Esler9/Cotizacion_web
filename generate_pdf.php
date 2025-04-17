@@ -1,27 +1,24 @@
-
 <?php
-// generate_pdf.php
 require 'fpdf/fpdf.php';
 session_start();
 
-// Validar flujo
 if (!isset($_SESSION['site_type'], $_SESSION['options'])) {
     header('Location: index.php');
     exit;
 }
 
-// Precios base por tipo de sitio
+// Precios base
 $base_prices = [
     'informativa' => 400,
     'ecommerce'   => 800,
     'scalable'    => 3999
 ];
 
-// Constantes para extras
+// Constantes extras
 defined('Q_PER_EXTRA_PAGE')     or define('Q_PER_EXTRA_PAGE', 100);
 defined('Q_PER_EXTRA_PRODUCTS') or define('Q_PER_EXTRA_PRODUCTS', 100);
 
-// Mapa de precios de cada opción
+// Mapa de precios
 $map = [
     'design_basica'         => 0,
     'design_personalizado'  => 400,
@@ -47,82 +44,65 @@ $map = [
     'hosting_avanzado'      => 1300
 ];
 
-// Armar listado de ítems y total
+// Construir ítems y total
 $items = [];
 $total = 0;
 
-// Agregar precio base
+// Base
 $type = $_SESSION['site_type'];
-$items[] = [
-    'desc'  => "Tipo de sitio: " . ucfirst($type),
-    'price' => $base_prices[$type]
-];
+$items[] = ['desc'=>"Tipo de sitio: ".ucfirst($type), 'price'=>$base_prices[$type]];
 $total += $base_prices[$type];
 
-// Iterar selecciones guardadas
+// Opciones
 foreach ($_SESSION['options'] as $group => $val) {
     if (is_array($val)) {
         foreach ($val as $v) {
             $key = "{$group}_{$v}";
             if (isset($map[$key])) {
-                $items[] = [
-                    'desc'  => ucfirst(str_replace(['_', '-'], ' ', $v)),
-                    'price' => $map[$key]
-                ];
+                $items[] = ['desc'=>ucfirst(str_replace(['_','-'],' ',$v)), 'price'=>$map[$key]];
                 $total += $map[$key];
             }
         }
     } else {
         $key = "{$group}_{$val}";
         if (isset($map[$key])) {
-            $items[] = [
-                'desc'  => ucfirst(str_replace(['_', '-'], ' ', $val)),
-                'price' => $map[$key]
-            ];
+            $items[] = ['desc'=>ucfirst(str_replace(['_','-'],' ',$val)), 'price'=>$map[$key]];
             $total += $map[$key];
         }
     }
 }
 
-// Agregar páginas extra
-$extra_pages = (int)($_SESSION['options']['extra_pages'] ?? 0);
-if ($extra_pages > 0) {
-    $items[] = [
-        'desc'  => "Páginas extra ({$extra_pages})",
-        'price' => Q_PER_EXTRA_PAGE * $extra_pages
-    ];
-    $total += Q_PER_EXTRA_PAGE * $extra_pages;
+// Páginas extra
+$ep = (int)($_SESSION['options']['extra_pages'] ?? 0);
+if ($ep > 0) {
+    $items[] = ['desc'=>"Páginas extra ({$ep})", 'price'=>Q_PER_EXTRA_PAGE * $ep];
+    $total += Q_PER_EXTRA_PAGE * $ep;
 }
-
-// Agregar productos extra
-$extra_products = (int)($_SESSION['options']['extra_products'] ?? 0);
-if ($extra_products > 0) {
-    $blocks = $extra_products / 50;
-    $items[] = [
-        'desc'  => "Productos extra ({$extra_products})",
-        'price' => Q_PER_EXTRA_PRODUCTS * $blocks
-    ];
+// Productos extra
+$epr = (int)($_SESSION['options']['extra_products'] ?? 0);
+if ($epr > 0) {
+    $blocks = $epr / 50;
+    $items[] = ['desc'=>"Productos extra ({$epr})", 'price'=>Q_PER_EXTRA_PRODUCTS * $blocks];
     $total += Q_PER_EXTRA_PRODUCTS * $blocks;
 }
 
-// Generar PDF con FPDF
+// Generar PDF
 $pdf = new FPDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Cell(0, 10, 'Cotización de Sitio Web', 0, 1, 'C');
+$pdf->SetFont('Arial','B',16);
+$pdf->Cell(0,10,'Cotización de Sitio Web',0,1,'C');
 $pdf->Ln(5);
 
-$pdf->SetFont('Arial', '', 12);
+$pdf->SetFont('Arial','',12);
 foreach ($items as $it) {
-    $pdf->Cell(140, 8, $it['desc'], 0, 0);
-    $pdf->Cell(0, 8, 'Q' . number_format($it['price'], 2), 0, 1, 'R');
+    $pdf->Cell(140,8,$it['desc'],0,0);
+    $pdf->Cell(0,8,'Q'.number_format($it['price'],2),0,1,'R');
 }
 
 $pdf->Ln(5);
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(140, 8, 'Total', 0, 0);
-$pdf->Cell(0, 8, 'Q' . number_format($total, 2), 0, 1, 'R');
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(140,8,'Total',0,0);
+$pdf->Cell(0,8,'Q'.number_format($total,2),0,1,'R');
 
-// Forzar descarga del PDF
-$pdf->Output('D', 'cotizacion.pdf');
+$pdf->Output('D','cotizacion.pdf');
 exit;

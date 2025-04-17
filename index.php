@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['site_type'])) {
 <head>
   <meta charset="UTF-8">
   <title>Cotizador Web – Paso 1</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="general.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="container">
@@ -42,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['site_type'])) {
         <label class="option-card">
           <input type="radio" name="site_type" value="scalable">
           <div class="option-content">
-            <h3>Sitio Web Escalable y Personalizado</h3>
+            <h3>Sitio Web Escalable</h3>
             <p>Laravel + Vue.js desde Q3,999</p>
           </div>
           <div class="price">Desde Q3,999</div>
