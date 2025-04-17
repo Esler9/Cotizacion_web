@@ -1,20 +1,29 @@
 <?php
-namespace App\Controllers;
-use App\Models\Quote;
+namespace App\controllers;
+
+use App\models\Quote;
 
 class OptionsController
 {
     public function show()
     {
-        if (!isset(\$_SESSION['site_type'])) {
-            header('Location: /'); exit;
+        // Si no hay tipo de sitio, volvemos al inicio
+        if (!isset($_SESSION['site_type'])) {
+            header('Location: /');
+            exit;
         }
-        \$quote = new Quote();
-        \$options = \$quote->getOptions();
-        if (\$_SERVER['REQUEST_METHOD'] === 'POST') {
-            \$_SESSION['options'] = \$_POST;
-            header('Location: /generate_pdf'); exit;
+
+        // Cargamos opciones desde el Model
+        $quote   = new Quote();
+        $options = $quote->getOptions();
+
+        // Al enviar, guardamos y redirigimos
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $_SESSION['options'] = $_POST;
+            header('Location: /generate_pdf');
+            exit;
         }
-        include __DIR__ . '/../Views/options.php';
+
+        include __DIR__ . '/../views/options.php';
     }
 }
