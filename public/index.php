@@ -1,35 +1,28 @@
 <?php
 // public/index.php
 
-// 1. Mostrar errores para depuración
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// 2. Autoload de Composer
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\controllers\SiteTypeController;
 use App\controllers\OptionsController;
+use App\controllers\PreviewController;
 use App\controllers\PdfController;
 
-// 3. Iniciar sesión
 session_start();
 
-// 4. Detectar basePath dinámicamente (subdominio o subcarpeta)
-$scriptName = $_SERVER['SCRIPT_NAME'];          // Ej: '/index.php' o '/cotizador/public/index.php'
-$basePath   = rtrim(dirname($scriptName), '/'); // Ej: '' en subdominio, '/cotizador/public' en subcarpeta
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Detectar ruta interna
+$script   = $_SERVER['SCRIPT_NAME'];            // e.g. '/index.php'
+$basePath = rtrim(dirname($script), '/');       // e.g. '' o '/cotizador/public'
+$uri      = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path     = $basePath && strpos($uri, $basePath) === 0
+            ? substr($uri, strlen($basePath))
+            : $uri;
+$path     = $path ?: '/';
 
-// 5. Quitar el basePath de la URI para obtener la ruta interna
-if ($basePath !== '' && strpos($requestUri, $basePath) === 0) {
-    $path = substr($requestUri, strlen($basePath));
-} else {
-    $path = $requestUri;
-}
-$path = $path === '' ? '/' : $path;
-
-// 6. Enrutamiento
+// Enrutamiento
 switch ($path) {
     case '/':
     case '/index.php':
@@ -38,6 +31,10 @@ switch ($path) {
 
     case '/options':
         (new OptionsController())->show();
+        break;
+
+    case '/summary':
+        (new PreviewController())->show();
         break;
 
     case '/generate_pdf':

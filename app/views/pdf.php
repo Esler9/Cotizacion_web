@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Paso 3: Resumen de Cotización</title>
-  <link rel="stylesheet" href="/css/general.css">
-  <link rel="stylesheet" href="/css/pdf.css">
+  <link rel="stylesheet" href="/assets/css/general.css">
+  <link rel="stylesheet" href="/assets/css/pdf.css">
 </head>
 <body>
   <div class="container">
     <h1>Paso 3: Resumen de Cotización</h1>
+
+    <!-- Indicador de pasos -->
     <div class="step-indicator">
       <div class="step">1. Tipo de Sitio</div>
       <div class="step">2. Detalles</div>
@@ -17,14 +19,9 @@
     </div>
 
     <?php
-      use App\models\Quote;
-
-      // Calcula items y total
-      $quote = new Quote();
-      $items = $quote->calculate($_SESSION['site_type'], $_SESSION['options']);
-      $total = array_sum(array_column($items, 'price'));
+      // $items viene del PreviewController
+      $total = 0;
     ?>
-
     <table class="table">
       <thead>
         <tr>
@@ -34,10 +31,11 @@
       </thead>
       <tbody>
         <?php foreach ($items as $it): ?>
-        <tr>
-          <td><?= htmlspecialchars($it['desc']) ?></td>
-          <td><?= number_format($it['price'], 2) ?></td>
-        </tr>
+          <tr>
+            <td><?= htmlspecialchars($it['desc'], ENT_QUOTES, 'UTF-8') ?></td>
+            <td><?= number_format($it['price'], 2) ?></td>
+          </tr>
+          <?php $total += $it['price']; ?>
         <?php endforeach; ?>
       </tbody>
     </table>
