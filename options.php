@@ -4,9 +4,10 @@ if (!isset($_SESSION['site_type'])) {
     header('Location: index.php');
     exit;
 }
-// Precios y opciones definidas
+
 define('Q_PER_EXTRA_PAGE', 100);
 define('Q_PER_EXTRA_PRODUCTS', 100);
+
 $options = [
     'design' => [
         ['id'=>'basica','label'=>'Plantilla Básica Incluida','price'=>0],
@@ -55,101 +56,127 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Opciones Adicionales</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Detalles de Cotización</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <h1>Detalles de tu Cotización</h1>
-    <form method="post" action="">
+    <div class="step-indicator">
+      <div class="step">1. Tipo de Sitio</div>
+      <div class="step active">2. Detalles</div>
+      <div class="step">3. Resultado</div>
+    </div>
+    <form method="post">
 
       <!-- Diseño -->
-      <div class="section">
+      <section class="section">
         <h2>Diseño</h2>
-        <?php foreach ($options['design'] as $opt): ?>
-          <label class="radio-option">
-            <input type="radio" name="design" value="<?= $opt['id']; ?>" required>
-            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
-          </label>
-        <?php endforeach; ?>
-      </div>
+        <div class="options-grid">
+          <?php foreach ($options['design'] as $opt): ?>
+            <input type="radio" id="design-<?= $opt['id']; ?>" name="design" value="<?= $opt['id']; ?>" hidden required>
+            <label for="design-<?= $opt['id']; ?>" class="option-card">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <?php if($opt['price']>0): ?><span class="price">Q<?= number_format($opt['price'],2); ?></span><?php endif; ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+      </section>
 
-      <!-- Páginas adicionales -->
-      <div class="section">
-        <h2>Diseño y Creación de Páginas Adicionales</h2>
-        <?php foreach ($options['extras'] as $opt): ?>
-          <label class="checkbox-option">
-            <input type="checkbox" name="extras[]" value="<?= $opt['id']; ?>">
-            <span><?= $opt['label']; ?> (Q<?= number_format($opt['price'],2); ?>)</span>
-          </label><br>
-        <?php endforeach; ?>
-        <label class="form-group">
-          <span>Otras páginas personalizadas (Q<?= Q_PER_EXTRA_PAGE; ?> p/u):</span>
-          <input type="number" name="extra_pages" min="0" value="0">
-        </label>
-      </div>
+      <!-- Páginas Adicionales -->
+      <section class="section">
+        <h2>Páginas Adicionales</h2>
+        <div class="options-grid-checkbox">
+          <?php foreach ($options['extras'] as $opt): ?>
+            <input type="checkbox" id="extra-<?= $opt['id']; ?>" name="extras[]" value="<?= $opt['id']; ?>" hidden>
+            <label for="extra-<?= $opt['id']; ?>" class="option-card checkbox">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <span class="price">Q<?= number_format($opt['price'],2); ?></span>
+            </label>
+          <?php endforeach; ?>
+        </div>
+        <div class="form-group">
+          <label for="extra_pages">Otras páginas (Q<?= Q_PER_EXTRA_PAGE; ?> p/u):</label>
+          <input type="number" id="extra_pages" name="extra_pages" min="0" value="0">
+        </div>
+      </section>
 
-      <!-- Productos para Ecommerce -->
+      <!-- Productos (solo Ecommerce) -->
       <?php if ($_SESSION['site_type'] === 'ecommerce'): ?>
-      <div class="section">
+      <section class="section">
         <h2>Productos para Ecommerce</h2>
-        <?php foreach ($options['products_range'] as $opt): ?>
-          <label class="radio-option">
-            <input type="radio" name="products_range" value="<?= $opt['id']; ?>" required>
-            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
-          </label>
-        <?php endforeach; ?>
-        <label class="form-group">
-          <span>Más productos (Q<?= Q_PER_EXTRA_PRODUCTS; ?> x 50):</span>
-          <input type="number" name="extra_products" step="50" min="0" value="0">
-        </label>
-      </div>
+        <div class="options-grid">
+          <?php foreach ($options['products_range'] as $opt): ?>
+            <input type="radio" id="prod-<?= $opt['id']; ?>" name="products_range" value="<?= $opt['id']; ?>" hidden required>
+            <label for="prod-<?= $opt['id']; ?>" class="option-card">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <?php if($opt['price']>0): ?><span class="price">Q<?= number_format($opt['price'],2); ?></span><?php endif; ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+        <div class="form-group">
+          <label for="extra_products">Más productos (x50 = Q<?= Q_PER_EXTRA_PRODUCTS; ?>):</label>
+          <input type="number" id="extra_products" name="extra_products" step="50" min="0" value="0">
+        </div>
+      </section>
       <?php endif; ?>
 
       <!-- SEO -->
-      <div class="section">
+      <section class="section">
         <h2>SEO</h2>
-        <?php foreach ($options['seo'] as $opt): ?>
-          <label class="radio-option">
-            <input type="radio" name="seo" value="<?= $opt['id']; ?>" <?php echo $opt['id']==='basico'?'checked':''; ?>>
-            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
-          </label>
-        <?php endforeach; ?>
-      </div>
+        <div class="options-grid">
+          <?php foreach ($options['seo'] as $opt): ?>
+            <input type="radio" id="seo-<?= $opt['id']; ?>" name="seo" value="<?= $opt['id']; ?>" hidden <?php echo $opt['id']==='basico'?'checked':''; ?> required>
+            <label for="seo-<?= $opt['id']; ?>" class="option-card">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <?php if($opt['price']>0): ?><span class="price">Q<?= number_format($opt['price'],2); ?></span><?php endif; ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+      </section>
 
       <!-- Branding -->
-      <div class="section">
+      <section class="section">
         <h2>Branding</h2>
-        <?php foreach ($options['branding'] as $opt): ?>
-          <label class="radio-option">
-            <input type="radio" name="branding" value="<?= $opt['id']; ?>" <?php echo $opt['id']==='none'?'checked':''; ?>>
-            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
-          </label>
-        <?php endforeach; ?>
-      </div>
+        <div class="options-grid">
+          <?php foreach ($options['branding'] as $opt): ?>
+            <input type="radio" id="brand-<?= $opt['id']; ?>" name="branding" value="<?= $opt['id']; ?>" hidden <?php echo $opt['id']==='none'?'checked':''; ?> required>
+            <label for="brand-<?= $opt['id']; ?>" class="option-card">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <?php if($opt['price']>0): ?><span class="price">Q<?= number_format($opt['price'],2); ?></span><?php endif; ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+      </section>
 
       <!-- Dominio -->
-      <div class="section">
+      <section class="section">
         <h2>Dominio</h2>
-        <?php foreach ($options['domain'] as $opt): ?>
-          <label class="radio-option">
-            <input type="radio" name="domain" value="<?= $opt['id']; ?>" <?php echo $opt['id']==='none'?'checked':''; ?>>
-            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
-          </label>
-        <?php endforeach; ?>
-      </div>
+        <div class="options-grid">
+          <?php foreach ($options['domain'] as $opt): ?>
+            <input type="radio" id="dom-<?= $opt['id']; ?>" name="domain" value="<?= $opt['id']; ?>" hidden <?php echo $opt['id']==='none'?'checked':''; ?> required>
+            <label for="dom-<?= $opt['id']; ?>" class="option-card">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <?php if($opt['price']>0): ?><span class="price">Q<?= number_format($opt['price'],2); ?></span><?php endif; ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+      </section>
 
       <!-- Hosting -->
-      <div class="section">
+      <section class="section">
         <h2>Hosting</h2>
-        <?php foreach ($options['hosting'] as $opt): ?>
-          <label class="radio-option">
-            <input type="radio" name="hosting" value="<?= $opt['id']; ?>" <?php echo $opt['id']==='none'?'checked':''; ?>>
-            <span><?= $opt['label']; ?><?php if($opt['price']>0) echo " (Q".number_format($opt['price'],2).")"; ?></span>
-          </label>
-        <?php endforeach; ?>
-      </div>
+        <div class="options-grid">
+          <?php foreach ($options['hosting'] as $opt): ?>
+            <input type="radio" id="host-<?= $opt['id']; ?>" name="hosting" value="<?= $opt['id']; ?>" hidden <?php echo $opt['id']==='none'?'checked':''; ?> required>
+            <label for="host-<?= $opt['id']; ?>" class="option-card">
+              <span class="option-title"><?= $opt['label']; ?></span>
+              <?php if($opt['price']>0): ?><span class="price">Q<?= number_format($opt['price'],2); ?></span><?php endif; ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+      </section>
 
       <button type="submit" class="btn">Generar Cotización</button>
     </form>
