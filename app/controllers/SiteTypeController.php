@@ -19,6 +19,6 @@ class SiteTypeController
         }
 
         // Incluye la vista
-        include __DIR__ . '/../Views/site_type.php';
+        include __DIR__ . '/../views/site_type.php';
     }
 }
