@@ -1,3 +1,5 @@
+/* public/assets/css/options.css */
+
 /* Paso 2: Detalles */
 .section {
   margin-bottom: var(--spacing);
@@ -5,6 +7,51 @@
 .section h2 {
   font-size: 1.3em;
   margin-bottom: calc(var(--spacing) / 2);
+}
+
+/* Wizard tabs */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #eee;
+  margin-bottom: var(--spacing);
+}
+.tabs button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: var(--spacing) 0;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.tabs button.active {
+  border-bottom: 3px solid var(--primary);
+  color: var(--primary);
+}
+.tabs button:hover {
+  background: rgba(52,152,219,0.05);
+}
+
+/* Contenido de cada pestaña */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* Navegación anterior/siguiente */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing);
+}
+.btn-secondary {
+  background: #ccc;
+  color: #333;
+}
+.btn-secondary:hover {
+  background: #bbb;
 }
 
 /* Grids de selección */
@@ -29,42 +76,4 @@
 }
 .option-card:hover {
   border-color: var(--primary);
-  background: rgba(52,152,219,0.05);
-}
-.option-card.checkbox input {
-  display: none;
-}
-input[type="checkbox"]:checked + .option-card.checkbox,
-input[type="radio"]:checked + .option-card {
-  border-color: var(--primary);
-  background: rgba(52,152,219,0.1);
-}
-
-.option-card .option-title {
-  font-weight: 500;
-}
-.option-card .price {
-  font-weight: 600;
-}
-
-/* Campos numéricos */
-.form-group {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing);
-  margin-bottom: var(--spacing);
-}
-.form-group label {
-  flex: 1;
-}
-.form-group input[type="number"] {
-  width: 100px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: var(--radius);
-  transition: border 0.2s;
-}
-.form-group input[type="number"]:focus {
-  border-color: var(--primary);
-  outline: none;
-}
+  background: rgba(52,152,219,0.05);}
