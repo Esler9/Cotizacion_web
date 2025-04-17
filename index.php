@@ -11,18 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['site_type'])) {
 <head>
   <meta charset="UTF-8">
   <title>Cotizador Web – Paso 1</title>
-  <link rel="stylesheet" href="general.css">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="css/general.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
   <div class="container">
     <h1>Cotizador de Sitio Web</h1>
+    <!-- Indicador de pasos -->
     <div class="step-indicator">
       <div class="step active">1. Tipo de Sitio</div>
       <div class="step">2. Detalles</div>
       <div class="step">3. Resultado</div>
     </div>
+
     <form method="post">
+      <!-- Grid de opciones -->
       <div class="options-grid">
         <label class="option-card">
           <input type="radio" name="site_type" value="informativa" required>
@@ -32,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['site_type'])) {
           </div>
           <div class="price">Q400.00</div>
         </label>
+
         <label class="option-card">
           <input type="radio" name="site_type" value="ecommerce">
           <div class="option-content">
@@ -40,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['site_type'])) {
           </div>
           <div class="price">Q800.00</div>
         </label>
+
         <label class="option-card">
           <input type="radio" name="site_type" value="scalable">
           <div class="option-content">
@@ -49,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['site_type'])) {
           <div class="price">Desde Q3,999</div>
         </label>
       </div>
+
       <button type="submit" class="btn">Siguiente</button>
     </form>
   </div>
