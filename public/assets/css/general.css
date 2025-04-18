@@ -2,16 +2,26 @@
 
 /* Valores globales */
 :root {
-  --color-base: #FFFFFF;         /* Blanco */
-  --color-secundario: #2C3E50;   /* Azul oscuro */
-  --color-acento: #3498DB;       /* Celeste */
-  --texto: #2C3E50;
-  --radio: 8px;
-  --g: 8px;                      /* Unidad base de espaciado */
+  /* Colores */
+  --color-base:        #FFFFFF;   /* Blanco principal */           /* :contentReference[oaicite:0]{index=0} */
+  --white:             var(--color-base);                       /* Alias para --white usado en index.css :contentReference[oaicite:1]{index=1} */
+  --color-secundario:  #2C3E50;   /* Azul oscuro */                /* :contentReference[oaicite:2]{index=2} */
+  --texto:             var(--color-secundario);                 /* Mismo valor para --texto */      /* :contentReference[oaicite:3]{index=3} */
+  --color-acento:      #3498DB;   /* Celeste / acento */            /* :contentReference[oaicite:4]{index=4} */
+  --primary:           var(--color-acento);                    /* Alias para --primary usado en index.css :contentReference[oaicite:5]{index=5} */
+
+  /* Espaciado y tamaños */
+  --g:                 8px;       /* Unidad base de espaciado */     /* :contentReference[oaicite:6]{index=6} */
+  --spacing:           var(--g);                                   /* Alias para --spacing usado en index.css :contentReference[oaicite:7]{index=7} */
+  
+  /* Bordes */
+  --radio:             8px;       /* Radio de borde general */        /* :contentReference[oaicite:8]{index=8} */
+  --radius:            var(--radio);                             /* Alias para --radius usado en index.css :contentReference[oaicite:9]{index=9} */
 
   /* Tipografía fluida */
-  --font-base: clamp(0.875rem, 1vw + 0.5rem, 1rem);
+  --font-base:         clamp(0.875rem, 1vw + 0.5rem, 1rem);      /* :contentReference[oaicite:10]{index=10} */
 }
+
 
 * {
   box-sizing: border-box;
