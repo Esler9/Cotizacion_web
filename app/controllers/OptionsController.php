@@ -12,25 +12,31 @@ class OptionsController
             exit;
         }
 
-        // 1) Creamos instancia del Model
-        $quote = new Quote();
-
-        // 2) Obtenemos todas las secciones y sus opciones
-        //    Esto llena $options con design, extras, products_range, seo, branding, domain, hosting
+        // 1) Instancia el Model y obtiene las opciones
+        $quote   = new Quote();
         $options = $quote->getOptions();
 
-        // 3) Definimos constantes para extras de páginas/productos
-        define('Q_PER_EXTRA_PAGE',     100);
-        define('Q_PER_EXTRA_PRODUCTS', 100);
+        // 2) Define constantes para páginas/productos extra
+        if (!defined('Q_PER_EXTRA_PAGE')) {
+            define('Q_PER_EXTRA_PAGE', 100);
+        }
+        if (!defined('Q_PER_EXTRA_PRODUCTS')) {
+            define('Q_PER_EXTRA_PRODUCTS', 100);
+        }
 
-        // 4) Si el formulario se envía, guardamos y redirigimos
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // 3) Procesa POST únicamente cuando viene la selección de 'design'
+        if (
+            $_SERVER['REQUEST_METHOD'] === 'POST' &&
+            isset($_POST['design'])
+        ) {
+            // Guarda las opciones seleccionadas
             $_SESSION['options'] = $_POST;
+            // Redirige a la generación de PDF
             header('Location: /generate_pdf');
             exit;
         }
 
-        // 5) Finalmente, incluimos la Vista y le pasamos $options
+        // 4) Renderiza la vista de opciones
         include __DIR__ . '/../views/options.php';
     }
 }
