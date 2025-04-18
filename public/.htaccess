@@ -1,19 +1,14 @@
-Options +FollowSymLinks
-RewriteEngine On
-RewriteBase /
+# public/.htaccess
 
-# Si existe archivo o carpeta, sírvelo directamente
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
+# Evita listar directorios
+Options -Indexes
 
-# En otro caso, redirige todo a index.php
-RewriteRule ^ index.php [L,QSA]
-
+# --- Cache busting para CSS y JS ---
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/css "access plus 0 seconds"
   ExpiresByType application/javascript "access plus 0 seconds"
+  ExpiresByType application/x-javascript "access plus 0 seconds"
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -23,3 +18,22 @@ RewriteRule ^ index.php [L,QSA]
     Header set Expires "0"
   </FilesMatch>
 </IfModule>
+
+# --- Reescritura al front controller ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Como estás en un subdominio cuyo docroot es public/, la base es /
+  RewriteBase /
+
+  # Si existe archivo o carpeta, servirlo directamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Si no, todo va a index.php
+  RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Usa index.php como página de índice
+DirectoryIndex index.php
