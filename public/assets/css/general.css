@@ -1,4 +1,6 @@
 :root {
+  /* Tipografía fluida */
+  --font-base: clamp(0.875rem, 1vw + 0.5rem, 1rem);
   --primary: #3498db;
   --white: #ffffff;
   --bg: #f9f9f9;
@@ -13,52 +15,46 @@
   padding: 0;
 }
 
+html {
+  font-size: var(--font-base);
+}
+
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 720px;
+  width: 90%;
+  max-width: 960px;
   margin: var(--spacing) auto;
   padding: var(--spacing);
   background: var(--white);
   border-radius: var(--radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 h1, h2 {
   margin-bottom: var(--spacing);
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .btn {
   display: block;
   width: 100%;
-  padding: calc(var(--spacing) / 2);
+  padding: calc(var(--spacing) / 1.5);
   background: var(--primary);
   color: var(--white);
   border: none;
   border-radius: var(--radius);
   text-align: center;
-  font-size: 1em;
+  font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s;
 }
-
 .btn:hover {
-  background: darken(var(--primary),10%);
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* Media queries generales */
-@media (max-width: 600px) {
-  .container {
-    padding: 12px;
-  }
+  background: #2878a6;
 }
