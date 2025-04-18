@@ -91,6 +91,9 @@ input[type="checkbox"]:checked + label.option-card .price {
   color: var(--color-base);
 }
 
+input[type="checkbox"]:checked + label.option-card p {
+  color: var(--white) !important;
+}
 
 /* Tipografía dentro de la tarjeta */
 .option-card .option-title {

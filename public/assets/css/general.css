@@ -112,3 +112,7 @@ h2 {
     padding: calc(var(--g) * 1.5);
   }
 }
+
+.options-grid input:checked + label p {
+  color: var(--white) !important;
+}
