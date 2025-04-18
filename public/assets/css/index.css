@@ -60,11 +60,11 @@ input[type="radio"] {
 /* Estado seleccionado: se aplica a la tarjeta y a todos sus descendientes */
 input[type="radio"]:checked + .option-card {
     border-color: var(--primary);
-    background: #3498db; /* Fondo celeste */
-    color: #fff; /* Letras blancas */
+    background: #3498db !important; /* Fondo celeste */
+    color: #fff !important;          /* Letras blancas */
 }
 input[type="radio"]:checked + .option-card * {
-    color: #fff;
+    color: #fff !important;
 }
 
 .option-card h3 {
