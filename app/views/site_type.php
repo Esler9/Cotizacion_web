@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Paso 1: Tipo de Sitio</title>
   <link rel="stylesheet" href="/assets/css/general.css">
   <link rel="stylesheet" href="/assets/css/index.css">
@@ -16,7 +15,8 @@
       <div class="step">2. Detalles</div>
       <div class="step">3. Resultado</div>
     </div>
-    <form method="post" action="/options">
+
+    <form method="post" action="/">
       <div class="options-grid">
         <input type="radio" id="informativa" name="site_type" value="informativa" hidden required>
         <label for="informativa" class="option-card">
@@ -39,6 +39,7 @@
           <div class="price">Desde Q3,999</div>
         </label>
       </div>
+
       <button type="submit" class="btn">Siguiente</button>
     </form>
   </div>
