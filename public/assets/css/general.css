@@ -28,7 +28,7 @@ body {
 
 .container {
   width: 90%;
-  max-width: 960px;
+  max-width: 1080px;
   margin: var(--spacing) auto;
   padding: var(--spacing);
   background: var(--white);
