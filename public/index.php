@@ -13,16 +13,16 @@ use App\controllers\PdfController;
 
 session_start();
 
-// Detectar ruta interna
-$script   = $_SERVER['SCRIPT_NAME'];            // e.g. '/index.php'
-$basePath = rtrim(dirname($script), '/');       // e.g. '' o '/cotizador/public'
+// Detecta basePath (subdominio o subcarpeta)
+$script   = $_SERVER['SCRIPT_NAME'];              
+$basePath = rtrim(dirname($script), '/');         
 $uri      = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$path     = $basePath && strpos($uri, $basePath) === 0
+$path     = ($basePath && strpos($uri, $basePath) === 0)
             ? substr($uri, strlen($basePath))
             : $uri;
 $path     = $path ?: '/';
 
-// Enrutamiento
+// Enrutamiento MVC
 switch ($path) {
     case '/':
     case '/index.php':

@@ -1,36 +1,116 @@
-/* Vista previa / impresión de PDF */
+/* public/assets/css/pdf.css */
+
+/* Tipografía y espaciado */
 body {
-  font-family: Arial, sans-serif;
-  background: #fff;
-  color: #000;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-base);
+  color: var(--texto);
+  line-height: 1.6;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
+
+.container {
+  width: 90%;
+  max-width: 1140px;
+  margin: calc(var(--g) * 2) auto;
+  padding: calc(var(--g) * 2);
+  background: var(--color-base);
+  border: 1px solid #EEE;
+  border-radius: var(--radio);
+}
+
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: calc(var(--g) * 2);
 }
+
+/* Step indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: calc(var(--g) * 2);
+}
+.step {
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  color: #AAA;
+  position: relative;
+  padding-bottom: 4px;
+}
+.step.active {
+  color: var(--color-acento);
+  font-weight: 700;
+}
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: #EEE;
+  transform: translateX(50%);
+  z-index: -1;
+}
+
+/* Tabla de cotización */
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: calc(var(--g) * 2);
 }
 .table th,
 .table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #DDD;
+  padding: calc(var(--g) * 1);
   text-align: left;
+  font-size: 1rem;
 }
 .table th {
-  background: #f2f2f2;
+  background: #F5F5F5;
+  font-weight: 500;
 }
+
+/* Total */
 .total {
   text-align: right;
-  font-weight: bold;
-  margin-top: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: calc(var(--g) * 2);
 }
-@media print {
-  .page-break {
-    page-break-after: always;
+
+/* Botón de descarga */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--g) * 1.5) calc(var(--g) * 3);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: var(--radio);
+  border: none;
+  cursor: pointer;
+  background: var(--color-acento);
+  color: var(--color-base);
+  min-height: 48px;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: #2980B9;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: calc(var(--g) * 1.5);
+  }
+
+  .table th,
+  .table td {
+    padding: calc(var(--g) * 0.75);
+    font-size: 0.9rem;
   }
 }
+
