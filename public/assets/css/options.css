@@ -1,30 +1,42 @@
-/* Paso 2: Detalles */
+/* public/assets/css/options.css */
 
-/* Tabs */
+/* Variables globales heredadas de general.css */
+:root {
+  --color-base: #FFFFFF;
+  --color-secundario: #2C3E50;
+  --color-acento: #3498DB;
+  --texto: #2C3E50;
+  --radio: 8px;
+  --g: 8px;
+}
+
+/* Tabs de navegación */
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 2px solid #eee;
-  margin-bottom: var(--spacing);
+  border-bottom: 2px solid #EEE;
+  margin-bottom: calc(var(--g) * 2);
 }
 .tabs button {
   flex: 1;
-  padding: calc(var(--spacing)/2);
   background: none;
   border: none;
-  font-size: 0.95rem;
+  padding: calc(var(--g) * 1) calc(var(--g) * 2);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-secundario);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
 .tabs button.active {
-  border-bottom: 3px solid var(--primary);
-  color: var(--primary);
+  color: var(--color-acento);
+  border-bottom: 3px solid var(--color-acento);
 }
 .tabs button:hover {
-  background: rgba(52,152,219,0.05);
+  background: rgba(52, 152, 219, 0.05);
 }
 
-/* Contenido de cada pestaña */
+/* Contenido de pestañas */
 .tab-content {
   display: none;
 }
@@ -32,78 +44,127 @@
   display: block;
 }
 
-/* Grids responsivos */
+/* Grid responsivo para tarjetas */
 .options-grid,
 .options-grid-checkbox {
   display: grid;
-  gap: var(--spacing);
-  margin-bottom: var(--spacing);
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: calc(var(--g) * 2);
+  margin-bottom: calc(var(--g) * 2);
 }
 
-/* Tarjeta de opción */
+/* Tarjetas de opción */
 .option-card {
+  background: var(--color-base);
+  border: 1px solid #DDD;
+  border-radius: var(--radio);
+  padding: calc(var(--g) * 2);
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing);
-  border: 1px solid #ddd;
-  border-radius: var(--radius);
   cursor: pointer;
-  transition: border 0.2s, background 0.2s, color 0.2s;
-  background: var(--white);
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  color: var(--texto);
 }
+/* Hover suave */
 .option-card:hover {
-  border-color: var(--primary);
-  background: rgba(52,152,219,0.05);
+  border-color: var(--color-acento);
+  background: rgba(52, 152, 219, 0.05);
 }
 
 /* Ocultar inputs */
-.options-grid-checkbox input,
-.options-grid input {
+.options-grid input,
+.options-grid-checkbox input {
   display: none;
 }
 
-/* Resaltar al seleccionar */
-.options-grid input:checked + label,
-.options-grid-checkbox input:checked + label {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: var(--white);
+/* Resaltar opción seleccionada */
+.options-grid input:checked + label.option-card,
+.options-grid-checkbox input:checked + label.option-card {
+  background: var(--color-acento);
+  border-color: var(--color-acento);
+  color: var(--color-base);
+}
+/* Asegurar que texto y precios dentro se vuelvan blancos */
+.options-grid input:checked + label.option-card .option-title,
+.options-grid input:checked + label.option-card .option-desc,
+.options-grid input:checked + label.option-card .price,
+.options-grid-checkbox input:checked + label.option-card .option-title,
+.options-grid-checkbox input:checked + label.option-card .option-desc,
+.options-grid-checkbox input:checked + label.option-card .price {
+  color: var(--color-base);
 }
 
-/* Campos numéricos */
+/* Estilos de texto dentro de la tarjeta */
+.option-card .option-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--g);
+}
+.option-card .option-desc {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: calc(var(--g) * 1.5);
+}
+.option-card .price {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Grupo de formulario para campos numéricos */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing);
-  margin-bottom: var(--spacing);
+  margin-bottom: calc(var(--g) * 2);
 }
 .form-group label {
-  font-size: 0.9rem;
+  margin-bottom: var(--g);
+  font-weight: 500;
 }
 .form-group input[type="number"] {
   width: 100%;
   max-width: 120px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: var(--radius);
-  transition: border 0.2s;
+  padding: calc(var(--g) * 1);
+  border: 1px solid #CCC;
+  border-radius: var(--radio);
+  font-size: 1rem;
+  transition: border-color 0.2s;
 }
 .form-group input[type="number"]:focus {
-  border-color: var(--primary);
+  border-color: var(--color-acento);
   outline: none;
 }
 
-/* Navegación */
+/* Botones de navegación */
 .nav-buttons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: var(--spacing);
-  margin-top: var(--spacing);
+  gap: calc(var(--g) * 2);
+  margin-top: calc(var(--g) * 2);
 }
 .btn-secondary {
-  width: auto;
-  padding: 0.5em 1em;
+  background: #CCC;
+  color: var(--texto);
+  min-width: 120px;
+}
+.btn-secondary:hover {
+  background: #BBB;
+}
+
+/* Adaptaciones móviles */
+@media (max-width: 600px) {
+  .tabs button {
+    font-size: 0.9rem;
+    padding: calc(var(--g) * 0.75);
+  }
+  .option-card {
+    padding: calc(var(--g) * 1.5);
+  }
+  .option-card .option-title {
+    font-size: 1.1rem;
+  }
+  .form-group input[type="number"] {
+    max-width: 100%;
+  }
 }
