@@ -2,14 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Paso 2: Detalles de tu Cotización</title>
   <link rel="stylesheet" href="/assets/css/general.css">
+  <link rel="stylesheet" href="/assets/css/index.css">
   <link rel="stylesheet" href="/assets/css/options.css">
 </head>
 <body>
   <div class="container">
     <h1>Paso 2: Detalles de tu Cotización</h1>
+
+    <!-- Step indicator idéntico a index.php -->
     <div class="step-indicator">
       <div class="step">1. Tipo de Sitio</div>
       <div class="step active">2. Detalles</div>
@@ -17,7 +20,7 @@
     </div>
 
     <form method="post" action="/options">
-      <!-- Navegación de pestañas -->
+      <!-- Pestañas -->
       <div class="tabs">
         <button type="button" data-tab="design" class="active">Diseño</button>
         <button type="button" data-tab="extras">Páginas</button>
@@ -40,9 +43,18 @@
                    value="<?= $opt['id'] ?>"
                    hidden required>
             <label for="design-<?= $opt['id'] ?>" class="option-card">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  switch($opt['id']){
+                    case 'basica': echo 'Plantilla predefinida, ideal para empezar rápido.'; break;
+                    case 'personalizado': echo 'Diseño a medida según tus necesidades.'; break;
+                    case 'profesional': echo 'Estrategia visual avanzada para marketing.'; break;
+                  }
+                ?>
+              </p>
               <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+                <div class="price">Q<?= number_format($opt['price'],2) ?></div>
               <?php endif; ?>
             </label>
           <?php endforeach; ?>
@@ -59,18 +71,27 @@
                    value="<?= $opt['id'] ?>"
                    hidden>
             <label for="extra-<?= $opt['id'] ?>" class="option-card checkbox">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
-              <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  switch($opt['id']){
+                    case 'perfil': echo 'Página para mostrar datos del usuario.'; break;
+                    case 'login': echo 'Formulario de autenticación seguro.'; break;
+                    case 'busqueda': echo 'Resultados filtrados y ordenados.'; break;
+                  }
+                ?>
+              </p>
+              <div class="price">Q<?= number_format($opt['price'],2) ?></div>
             </label>
           <?php endforeach; ?>
         </div>
         <div class="form-group">
-          <label for="extra_pages">Otras páginas (Q<?= Q_PER_EXTRA_PAGE ?> p/u):</label>
+          <label for="extra_pages">Otras páginas (Q<?= Q_PER_EXTRA_PAGE ?> p/u):</label>
           <input type="number" id="extra_pages" name="extra_pages" min="0" value="0">
         </div>
       </div>
 
-      <!-- Productos (solo Ecommerce) -->
+      <!-- Productos (solo para ecommerce) -->
       <?php if ($_SESSION['site_type'] === 'ecommerce'): ?>
       <div id="products" class="tab-content">
         <div class="options-grid">
@@ -81,9 +102,19 @@
                    value="<?= $opt['id'] ?>"
                    hidden required>
             <label for="prod-<?= $opt['id'] ?>" class="option-card">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  switch($opt['id']){
+                    case '50':      echo 'Incluye hasta 50 productos.'; break;
+                    case '50-200':  echo 'Entre 50 y 200 productos listos.'; break;
+                    case '200-500': echo 'Entre 200 y 500 productos disponibles.'; break;
+                    case '500-1000':echo 'Hasta 1000 productos cargados.'; break;
+                  }
+                ?>
+              </p>
               <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+                <div class="price">Q<?= number_format($opt['price'],2) ?></div>
               <?php endif; ?>
             </label>
           <?php endforeach; ?>
@@ -105,9 +136,18 @@
                    value="<?= $opt['id'] ?>"
                    hidden <?= $opt['id']==='basico'?'checked':'' ?> required>
             <label for="seo-<?= $opt['id'] ?>" class="option-card">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  switch($opt['id']){
+                    case 'basico':    echo 'Meta títulos, descripciones y URLs amigables.'; break;
+                    case 'intermedio':echo 'Optimización de imágenes y estructura H1–H2.'; break;
+                    case 'avanzado':  echo 'Sitemap XML, robots.txt y schema markup.'; break;
+                  }
+                ?>
+              </p>
               <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+                <div class="price">Q<?= number_format($opt['price'],2) ?></div>
               <?php endif; ?>
             </label>
           <?php endforeach; ?>
@@ -124,9 +164,18 @@
                    value="<?= $opt['id'] ?>"
                    hidden <?= $opt['id']==='none'?'checked':'' ?> required>
             <label for="brand-<?= $opt['id'] ?>" class="option-card">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  switch($opt['id']){
+                    case 'none':             echo 'Ya cuentas con tu propia marca.'; break;
+                    case 'logo_basico':      echo '3 variaciones y 5 iconos listos.'; break;
+                    case 'icono_profesional':echo 'Archivos PSD, AI, PDF y PNG incluidos.'; break;
+                  }
+                ?>
+              </p>
               <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+                <div class="price">Q<?= number_format($opt['price'],2) ?></div>
               <?php endif; ?>
             </label>
           <?php endforeach; ?>
@@ -143,9 +192,16 @@
                    value="<?= $opt['id'] ?>"
                    hidden <?= $opt['id']==='none'?'checked':'' ?> required>
             <label for="dom-<?= $opt['id'] ?>" class="option-card">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  echo $opt['id']==='dominio'
+                    ? 'Registro anual de tu .com garantizado.'
+                    : 'Ya posees tu dominio registrado.';
+                ?>
+              </p>
               <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+                <div class="price">Q<?= number_format($opt['price'],2) ?></div>
               <?php endif; ?>
             </label>
           <?php endforeach; ?>
@@ -162,16 +218,26 @@
                    value="<?= $opt['id'] ?>"
                    hidden <?= $opt['id']==='none'?'checked':'' ?> required>
             <label for="host-<?= $opt['id'] ?>" class="option-card">
-              <span class="option-title"><?= htmlspecialchars($opt['label']) ?></span>
+              <h3 class="option-title"><?= htmlspecialchars($opt['label']) ?></h3>
+              <p class="option-desc">
+                <?php
+                  switch($opt['id']){
+                    case 'compartido':  echo 'Hasta 10k visitas/mes en hosting básico.'; break;
+                    case 'profesional': echo 'Hasta 25k visitas/mes con buen rendimiento.'; break;
+                    case 'avanzado':    echo 'Solución avanz. para hasta 50k visitas/mes.'; break;
+                    default:            echo 'Ya tienes hosting propio.'; break;
+                  }
+                ?>
+              </p>
               <?php if ($opt['price'] > 0): ?>
-                <span class="price">Q<?= number_format($opt['price'],2) ?></span>
+                <div class="price">Q<?= number_format($opt['price'],2) ?></div>
               <?php endif; ?>
             </label>
           <?php endforeach; ?>
         </div>
       </div>
 
-      <!-- Botones Navegación -->
+      <!-- Botones de navegación -->
       <div class="nav-buttons">
         <button type="button" class="btn btn-secondary" id="prevBtn">Anterior</button>
         <button type="button" class="btn" id="nextBtn">Siguiente</button>
