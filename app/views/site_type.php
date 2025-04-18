@@ -16,29 +16,29 @@
     </div>
     <form method="post" action="">
       <div class="options-grid">
-        <label class="option-card">
+        <label>
           <input type="radio" name="site_type" value="informativa" required>
-          <div class="option-content">
+          <div class="option-card">
             <h3>Página Informativa</h3>
             <p>3 páginas: Home, Contacto, Servicios</p>
+            <div class="price">Q400.00</div>
           </div>
-          <div class="price">Q400.00</div>
         </label>
-        <label class="option-card">
+        <label>
           <input type="radio" name="site_type" value="ecommerce">
-          <div class="option-content">
+          <div class="option-card">
             <h3>Página Ecommerce</h3>
             <p>7 páginas: Home, Contacto, Tienda, Producto, Categoría, Carrito, Checkout</p>
+            <div class="price">Q800.00</div>
           </div>
-          <div class="price">Q800.00</div>
         </label>
-        <label class="option-card">
+        <label>
           <input type="radio" name="site_type" value="scalable">
-          <div class="option-content">
+          <div class="option-card">
             <h3>Sitio Web Escalable</h3>
             <p>Laravel + Vue.js desde Q3,999</p>
+            <div class="price">Desde Q3,999</div>
           </div>
-          <div class="price">Desde Q3,999</div>
         </label>
       </div>
       <button type="submit" class="btn">Siguiente</button>
