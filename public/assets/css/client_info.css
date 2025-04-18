@@ -1,0 +1,117 @@
+/* public/assets/css/client_info.css */
+
+/* Variables globales del proyecto */
+:root {
+  --color-base: #FFFFFF;
+  --color-secundario: #2C3E50;
+  --color-acento: #3498DB;
+  --texto: #2C3E50;
+  --radio: 8px;
+  --g: 8px;
+}
+
+/* contenedor centrado */
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: calc(var(--g)*2) auto;
+  padding: calc(var(--g)*2);
+  background: var(--color-base);
+  border: 1px solid #EEE;
+  border-radius: var(--radio);
+}
+
+/* step‐indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: calc(var(--g)*2);
+}
+.step {
+  flex: 1;
+  text-align: center;
+  color: #AAA;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+}
+.step.active {
+  color: var(--color-acento);
+  font-weight: 700;
+}
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: #EEE;
+  transform: translateX(50%);
+  z-index: -1;
+}
+
+/* formularios de una columna */
+.form-group {
+  margin-bottom: calc(var(--g)*2);
+}
+.form-group label {
+  display: block;
+  margin-bottom: var(--g);
+  font-weight: 500;
+  color: var(--color-secundario);
+}
+.form-group input {
+  width: 100%;
+  padding: calc(var(--g)*1.5);
+  border: 1px solid #CCC;
+  border-radius: var(--radio);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.form-group input:focus {
+  border-color: var(--color-acento);
+  outline: none;
+}
+
+/* botones de navegación */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--g)*2);
+  margin-top: calc(var(--g)*2);
+}
+.btn {
+  flex: 1;
+  min-height: 48px;
+  padding: calc(var(--g)*1) calc(var(--g)*2);
+  background: var(--color-acento);
+  color: var(--color-base);
+  border: none;
+  border-radius: var(--radio);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+.btn:hover {
+  background: #2980B9;
+}
+.btn-secondary {
+  background: #CCC;
+  color: var(--texto);
+}
+.btn-secondary:hover {
+  background: #BBB;
+}
+
+/* adaptación móvil */
+@media (max-width: 480px) {
+  .container {
+    padding: calc(var(--g)*1.5);
+  }
+  .nav-buttons {
+    flex-direction: column;
+  }
+}

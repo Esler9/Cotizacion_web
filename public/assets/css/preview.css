@@ -1,0 +1,113 @@
+/* public/assets/css/preview.css */
+
+/* Variables globales del proyecto */
+:root {
+    --color-base: #FFFFFF;
+    --color-secundario: #2C3E50;
+    --color-acento: #3498DB;
+    --texto: #2C3E50;
+    --radio: 8px;
+    --g: 8px;
+  }
+  
+  /* contenedor principal */
+  .container {
+    width: 90%;
+    max-width: 800px;
+    margin: calc(var(--g)*2) auto;
+    padding: calc(var(--g)*2);
+    background: var(--color-base);
+    border: 1px solid #EEE;
+    border-radius: var(--radio);
+  }
+  
+  /* paso actual */
+  .step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: calc(var(--g)*2);
+  }
+  .step {
+    flex: 1;
+    text-align: center;
+    color: #AAA;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .step.active {
+    color: var(--color-acento);
+    font-weight: 700;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background: #EEE;
+    transform: translateX(50%);
+    z-index: -1;
+  }
+  
+  /* tabla de resumen */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: calc(var(--g)*2);
+  }
+  .table th,
+  .table td {
+    border: 1px solid #DDD;
+    padding: calc(var(--g)*1);
+    font-size: 1rem;
+    text-align: left;
+  }
+  .table th {
+    background: #F5F5F5;
+    font-weight: 600;
+    color: var(--color-secundario);
+  }
+  
+  /* total destacado */
+  .total {
+    text-align: right;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: calc(var(--g)*2);
+    color: var(--color-secundario);
+  }
+  
+  /* botón de descarga */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--g)*1.5) calc(var(--g)*3);
+    background: var(--color-acento);
+    color: var(--color-base);
+    border: none;
+    border-radius: var(--radio);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-height: 48px;
+  }
+  .btn:hover {
+    background: #2980B9;
+  }
+  
+  /* adaptación móvil */
+  @media (max-width: 600px) {
+    .table th,
+    .table td {
+      padding: calc(var(--g)*0.75);
+      font-size: 0.9rem;
+    }
+    .container {
+      padding: calc(var(--g)*1.5);
+    }
+  }
+  
