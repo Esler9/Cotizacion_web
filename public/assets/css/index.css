@@ -35,6 +35,7 @@ input[type="radio"] {
 .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 1fr; /* Forzar filas de igual altura */
     gap: var(--spacing);
     margin-bottom: var(--spacing);
 }
@@ -49,7 +50,6 @@ input[type="radio"] {
     border-radius: var(--radius);
     cursor: pointer;
     transition: border 0.2s, background 0.2s;
-    /* Aseguramos que la tarjeta ocupe la altura completa del grid */
     height: 100%;
 }
 .option-card:hover {
@@ -58,15 +58,13 @@ input[type="radio"] {
 }
 
 /* Estado seleccionado: se aplica a la tarjeta y a todos sus descendientes */
-input[type="radio"]:checked + .option-card {
-    border-color: var(--primary);
-    background: #3498db !important; /* Fondo celeste */
-    color: #fff !important;          /* Letras blancas */
-}
-
+input[type="radio"]:checked + .option-card,
 input[type="radio"]:checked + .option-card * {
+    background: #3498db !important;
+    border-color: var(--primary) !important;
     color: #fff !important;
 }
+
 input[type="radio"]:checked + .option-card p {
   color: #fff !important;          /* Letras blancas */
 }
@@ -95,5 +93,13 @@ input[type="radio"]:checked + .option-card * {
 }
 
 input[type="radio"]:checked + .option-card p {
+    color: #fff !important;
+}
+
+/* Coloca esta regla al final para forzar estilos en todos los elementos dentro de la tarjeta seleccionada */
+input[type="radio"]:checked + .option-card,
+input[type="radio"]:checked + .option-card * {
+    background: #3498db !important;
+    border-color: var(--primary) !important;
     color: #fff !important;
 }
