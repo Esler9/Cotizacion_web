@@ -1,15 +1,6 @@
-/* public/assets/css/options.css */
+/* Paso 2: Detalles */
 
-/* Paso 2: Detalles */
-.section {
-  margin-bottom: var(--spacing);
-}
-.section h2 {
-  font-size: 1.3em;
-  margin-bottom: calc(var(--spacing) / 2);
-}
-
-/* Wizard tabs */
+/* Tabs */
 .tabs {
   display: flex;
   border-bottom: 2px solid #eee;
@@ -32,7 +23,7 @@
   background: rgba(52,152,219,0.05);
 }
 
-/* Contenido de cada pestaña */
+/* Tab content */
 .tab-content {
   display: none;
 }
@@ -40,30 +31,33 @@
   display: block;
 }
 
-/* Navegación anterior/siguiente */
-.nav-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: var(--spacing);
-}
-.btn-secondary {
-  background: #ccc;
-  color: #333;
-}
-.btn-secondary:hover {
-  background: #bbb;
-}
-
-/* Grids de selección */
+/* Grids responsivos */
 .options-grid,
 .options-grid-checkbox {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--spacing);
   margin-bottom: var(--spacing);
 }
+@media (max-width: 768px) {
+  .options-grid,
+  .options-grid-checkbox {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 769px) and (max-width: 1200px) {
+  .options-grid,
+  .options-grid-checkbox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1201px) {
+  .options-grid,
+  .options-grid-checkbox {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-/* Tarjetas de opciones (radio y checkbox) */
+/* Tarjetas de opción */
 .option-card {
   display: flex;
   justify-content: space-between;
@@ -76,4 +70,59 @@
 }
 .option-card:hover {
   border-color: var(--primary);
-  background: rgba(52,152,219,0.05);}
+  background: rgba(52,152,219,0.05);
+}
+
+/* Resaltar selección */
+.option-card:has(input:checked) {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+.option-card:has(input:checked) .option-title,
+.option-card:has(input:checked) .price {
+  color: var(--white);
+}
+
+/* Ocultar inputs */
+.option-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Campos numéricos */
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+.form-group label {
+  flex: 1;
+}
+.form-group input[type="number"] {
+  width: 100px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  transition: border 0.2s;
+}
+.form-group input[type="number"]:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Botones de navegación */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing);
+}
+.btn-secondary {
+  background: #ccc;
+  color: #333;
+}
+.btn-secondary:hover {
+  background: #bbb;
+}

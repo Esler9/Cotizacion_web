@@ -1,97 +1,64 @@
 :root {
-    --primary: #3498db;
-    --primary-dark: #2980b9;
-    --bg: #f9f9f9;
-    --white: #ffffff;
-    --text: #333333;
-    --radius: 8px;
-    --spacing: 16px;
+  --primary: #3498db;
+  --white: #ffffff;
+  --bg: #f9f9f9;
+  --text: #333333;
+  --radius: 8px;
+  --spacing: 16px;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
 }
 
 .container {
-    max-width: 720px;
-    width: 100%;
-    margin: var(--spacing) auto;
-    padding: var(--spacing);
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 720px;
+  margin: var(--spacing) auto;
+  padding: var(--spacing);
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2 {
-    margin-bottom: var(--spacing);
-    font-weight: 600;
+  margin-bottom: var(--spacing);
+  font-weight: 600;
 }
 
 .btn {
-    display: block;
-    width: 100%;
-    padding: calc(var(--spacing) / 2);
-    background: var(--primary);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius);
-    text-align: center;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background 0.2s;
+  display: block;
+  width: 100%;
+  padding: calc(var(--spacing) / 2);
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .btn:hover {
-    background: var(--primary-dark);
+  background: darken(var(--primary),10%);
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
-/* Media Queries para diseño responsivo */
-
-/* Dispositivos pequeños (móviles) */
-@media (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
-    .container {
-        margin: calc(var(--spacing) / 2) 8px;
-        padding: calc(var(--spacing) / 2);
-    }
-    h1, h2 {
-        font-size: 1.5em;
-    }
-}
-
-/* Dispositivos medianos (tablets) */
-@media (min-width: 481px) and (max-width: 768px) {
-    body {
-        font-size: 15px;
-    }
-    .container {
-        margin: var(--spacing);
-        padding: var(--spacing);
-    }
-    h1, h2 {
-        font-size: 1.75em;
-    }
-}
-
-/* Dispositivos grandes (escritorio) */
-/* Se puede ajustar según sea necesario, aquí se deja igual */
-@media (min-width: 1080px) {
-    body {
-        font-size: 16px;
-    }
+/* Media queries generales */
+@media (max-width: 600px) {
+  .container {
+    padding: 12px;
+  }
 }
