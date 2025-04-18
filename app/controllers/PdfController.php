@@ -5,9 +5,6 @@ namespace App\controllers;
 
 use App\models\Quote;
 
-// Asegúrate de tener cargado el autoload de Composer
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 class PdfController
 {
     /**
@@ -26,17 +23,20 @@ class PdfController
         }
 
         // Recuperar datos
-        $client = $_SESSION['client'];
+        $client     = $_SESSION['client'];
         $quoteModel = new Quote();
-        $items = $quoteModel->calculate(
+        $items      = $quoteModel->calculate(
             $_SESSION['site_type'],
             $_SESSION['options']
         );
         $total = array_sum(array_column($items, 'price'));
 
-        // Extiende FPDF para header/footer
+        // Instanciar FPDF
         $pdf = new \FPDF('P', 'mm', 'A4');
         $pdf->SetAutoPageBreak(true, 20);
+
+        // **Añadir página ANTES de dibujar**
+        $pdf->AddPage();
 
         // Header
         $pdf->SetFillColor(52, 152, 219);             // Celeste
@@ -66,16 +66,14 @@ class PdfController
 
         $pdf->SetFont('Arial', '', 11);
         foreach ($items as $it) {
-            // Descripción multiline
+            // Ancho de descripción
             $pdf->MultiCell(130, 6, $it['desc'], 1);
-            // Posiciona el precio al lado
+            // Posicionar y escribir precio alineado con la altura de la descripción
+            $height = 6 * (substr_count($it['desc'], "\n") + 1);
             $x = $pdf->GetX();
-            $y = $pdf->GetY() - 6 * substr_count($it['desc'], "\n") - 6;
+            $y = $pdf->GetY() - $height;
             $pdf->SetXY(140, $y);
-            $pdf->Cell(50, 6 * (substr_count($it['desc'], "\n") + 1),
-                       'Q' . number_format($it['price'], 2),
-                       1, 0, 'R');
-            $pdf->Ln(0);
+            $pdf->Cell(50, $height, 'Q' . number_format($it['price'], 2), 1, 1, 'R');
         }
 
         // Total
@@ -84,7 +82,7 @@ class PdfController
         $pdf->Cell(130, 7, 'Total', 1, 0, 'R');
         $pdf->Cell(50, 7, 'Q' . number_format($total, 2), 1, 1, 'R');
 
-        // Políticas y términos
+        // Términos y Condiciones
         $pdf->Ln(8);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(0, 6, 'Términos y Condiciones', 0, 1);
