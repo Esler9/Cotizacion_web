@@ -73,22 +73,24 @@
   pointer-events: none;
 }
 
-/* Resaltar opción seleccionada */
-.options-grid input[type="radio"]:checked + label.option-card,
-.options-grid-checkbox input[type="checkbox"]:checked + label.option-card {
+/* Resaltar radio o checkbox seleccionado */
+input[type="radio"]:checked + label.option-card,
+input[type="checkbox"]:checked + label.option-card {
   background: var(--color-acento);
   border-color: var(--color-acento);
   color: var(--color-base);
 }
-/* Asegurar que texto y precios dentro se vuelvan blancos */
-.options-grid input[type="radio"]:checked + label.option-card .option-title,
-.options-grid input[type="radio"]:checked + label.option-card .option-desc,
-.options-grid input[type="radio"]:checked + label.option-card .price,
-.options-grid-checkbox input[type="checkbox"]:checked + label.option-card .option-title,
-.options-grid-checkbox input[type="checkbox"]:checked + label.option-card .option-desc,
-.options-grid-checkbox input[type="checkbox"]:checked + label.option-card .price {
+
+/* Asegurar que todo el texto dentro vaya a blanco */
+input[type="radio"]:checked + label.option-card .option-title,
+input[type="radio"]:checked + label.option-card .option-desc,
+input[type="radio"]:checked + label.option-card .price,
+input[type="checkbox"]:checked + label.option-card .option-title,
+input[type="checkbox"]:checked + label.option-card .option-desc,
+input[type="checkbox"]:checked + label.option-card .price {
   color: var(--color-base);
 }
+
 
 /* Tipografía dentro de la tarjeta */
 .option-card .option-title {
