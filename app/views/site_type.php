@@ -26,14 +26,14 @@
         </label>
         <input type="radio" id="ecommerce" name="site_type" value="ecommerce" hidden>
         <label for="ecommerce" class="option-card">
-          <h2 class="option-title">Página Ecommerce</h2>
+          <h2 class="option-title">Página E-commerce</h2>
           <p class="option-desc">7 páginas: Home, Contacto, Tienda, Producto, Categoría, Carrito, Checkout.</p>
           <div class="price">Q800.00</div>
         </label>
         <input type="radio" id="scalable" name="site_type" value="scalable" hidden>
         <label for="scalable" class="option-card">
           <h2 class="option-title">Sitio Web Escalable</h2>
-          <p class="option-desc">Laravel + Vue.js</p>
+          <p class="option-desc">`Solución web escalable en Laravel, Vue.js y MySQL diseñada para impulsar tu crecimiento digital.`</p>
           <div class="price">Q3,999.00</div>
         </label>
       </div>

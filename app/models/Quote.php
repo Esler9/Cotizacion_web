@@ -7,7 +7,7 @@ class Quote
     private const BASE_PRICES = [
         'informativa' => 400,
         'ecommerce'   => 800,
-        'scalable'    => 3500
+        'scalable'    => 3999
     ];
 
     // Precio por página extra y por bloque de 50 productos
