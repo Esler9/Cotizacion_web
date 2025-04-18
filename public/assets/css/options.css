@@ -91,7 +91,8 @@ input[type="checkbox"]:checked + label.option-card .price {
   color: var(--color-base);
 }
 
-input[type="checkbox"]:checked + label.option-card p {
+input[type="checkbox"]:checked + label.option-card p,
+input[type="radio"]:checked + label.option-card p{
   color: var(--white) !important;
 }
 
