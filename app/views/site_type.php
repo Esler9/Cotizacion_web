@@ -22,14 +22,14 @@
         <label for="informativa" class="option-card">
           <h3>Página Informativa</h3>
           <p>3 páginas: Home, Contacto, Servicios</p>
-          <div class="price">Q400.00</div>
+          <div class="price">Q899.00</div>
         </label>
 
         <input type="radio" id="ecommerce" name="site_type" value="ecommerce" hidden>
         <label for="ecommerce" class="option-card">
           <h3>Página Ecommerce</h3>
           <p>7 páginas: Home, Contacto, Tienda, Producto, Categoría, Carrito, Checkout</p>
-          <div class="price">Q800.00</div>
+          <div class="price">Q1499.00</div>
         </label>
 
         <input type="radio" id="scalable" name="site_type" value="scalable" hidden>
