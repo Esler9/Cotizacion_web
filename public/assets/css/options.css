@@ -1,14 +1,7 @@
 /* public/assets/css/options.css */
 
-/* Variables globales heredadas de general.css */
-:root {
-  --color-base: #FFFFFF;
-  --color-secundario: #2C3E50;
-  --color-acento: #3498DB;
-  --texto: #2C3E50;
-  --radio: 8px;
-  --g: 8px;
-}
+/* Variables globales (definidas en general.css) */
+/* --color-base, --color-secundario, --color-acento, --texto, --radio, --g */
 
 /* Tabs de navegación */
 .tabs {
@@ -55,6 +48,7 @@
 
 /* Tarjetas de opción */
 .option-card {
+  position: relative;
   background: var(--color-base);
   border: 1px solid #DDD;
   border-radius: var(--radio);
@@ -66,36 +60,37 @@
   transition: border-color 0.2s, background 0.2s, color 0.2s;
   color: var(--texto);
 }
-/* Hover suave */
 .option-card:hover {
   border-color: var(--color-acento);
   background: rgba(52, 152, 219, 0.05);
 }
 
 /* Ocultar inputs */
-.options-grid input,
-.options-grid-checkbox input {
-  display: none;
+.options-grid input[type="radio"],
+.options-grid-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Resaltar opción seleccionada */
-.options-grid input:checked + label.option-card,
-.options-grid-checkbox input:checked + label.option-card {
+.options-grid input[type="radio"]:checked + label.option-card,
+.options-grid-checkbox input[type="checkbox"]:checked + label.option-card {
   background: var(--color-acento);
   border-color: var(--color-acento);
   color: var(--color-base);
 }
 /* Asegurar que texto y precios dentro se vuelvan blancos */
-.options-grid input:checked + label.option-card .option-title,
-.options-grid input:checked + label.option-card .option-desc,
-.options-grid input:checked + label.option-card .price,
-.options-grid-checkbox input:checked + label.option-card .option-title,
-.options-grid-checkbox input:checked + label.option-card .option-desc,
-.options-grid-checkbox input:checked + label.option-card .price {
+.options-grid input[type="radio"]:checked + label.option-card .option-title,
+.options-grid input[type="radio"]:checked + label.option-card .option-desc,
+.options-grid input[type="radio"]:checked + label.option-card .price,
+.options-grid-checkbox input[type="checkbox"]:checked + label.option-card .option-title,
+.options-grid-checkbox input[type="checkbox"]:checked + label.option-card .option-desc,
+.options-grid-checkbox input[type="checkbox"]:checked + label.option-card .price {
   color: var(--color-base);
 }
 
-/* Estilos de texto dentro de la tarjeta */
+/* Tipografía dentro de la tarjeta */
 .option-card .option-title {
   font-size: 1.25rem;
   font-weight: 600;
@@ -121,6 +116,7 @@
 .form-group label {
   margin-bottom: var(--g);
   font-weight: 500;
+  color: var(--color-secundario);
 }
 .form-group input[type="number"] {
   width: 100%;
