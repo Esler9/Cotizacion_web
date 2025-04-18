@@ -1,4 +1,3 @@
-// app/views/site_type.php
 <!DOCTYPE html>
 <html lang="es">
 <head>

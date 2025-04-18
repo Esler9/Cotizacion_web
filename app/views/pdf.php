@@ -1,4 +1,3 @@
-// app/views/pdf.php
 <!DOCTYPE html>
 <html lang="es">
 <head>

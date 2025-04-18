@@ -1,4 +1,3 @@
-// app/views/options.php
 <!DOCTYPE html>
 <html lang="es">
 <head>

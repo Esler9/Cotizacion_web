@@ -1,4 +1,3 @@
-// app/views/client_info.php
 <!DOCTYPE html>
 <html lang="es">
 <head>
