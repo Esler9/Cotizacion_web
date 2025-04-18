@@ -63,6 +63,9 @@ input[type="radio"]:checked + .option-card {
     background: #3498db !important; /* Fondo celeste */
     color: #fff !important;          /* Letras blancas */
 }
+input[type="radio"]:checked + p {
+  color: #fff !important;          /* Letras blancas */
+}
 input[type="radio"]:checked + .option-card * {
     color: #fff !important;
 }
