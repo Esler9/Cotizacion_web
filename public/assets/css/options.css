@@ -81,7 +81,7 @@ input[type="checkbox"]:checked + label.option-card {
   color: var(--color-base);
 }
 
-/* Asegurar que todo el texto dentro vaya a blanco */
+/* Y asegúrate de que el texto dentro también cambie a blanco */
 input[type="radio"]:checked + label.option-card .option-title,
 input[type="radio"]:checked + label.option-card .option-desc,
 input[type="radio"]:checked + label.option-card .price,
