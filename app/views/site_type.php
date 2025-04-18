@@ -1,3 +1,4 @@
+// app/views/site_type.php
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,7 +35,7 @@
         <label for="scalable" class="option-card">
           <h2 class="option-title">Sitio Web Escalable</h2>
           <p class="option-desc">Laravel + Vue.js</p>
-          <div class="price">Q3,999</div>
+          <div class="price">Q3,999.00</div>
         </label>
       </div>
       <button type="submit" class="btn">Siguiente</button>

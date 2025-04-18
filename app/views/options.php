@@ -1,4 +1,4 @@
-<!-- app/views/options.php -->
+// app/views/options.php
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,17 +12,13 @@
 <body>
   <div class="container">
     <h1>Paso 2: Detalles de tu Cotización</h1>
-
-    <!-- Indicador de pasos -->
     <div class="step-indicator">
       <div class="step">1. Tipo de Sitio</div>
       <div class="step active">2. Detalles</div>
       <div class="step">3. Información de Cliente</div>
       <div class="step">4. Resultado</div>
     </div>
-
     <form method="post" action="/options">
-      <!-- Navegación de pestañas -->
       <div class="tabs">
         <button type="button" data-tab="design" class="active">Diseño</button>
         <button type="button" data-tab="extras">Páginas</button>
@@ -52,11 +48,17 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?php
-                  switch ($opt['id']) {
-                    case 'basica': echo 'Plantilla predefinida, ideal para empezar rápido.'; break;
-                    case 'personalizado': echo 'Diseño a medida según tus necesidades.'; break;
-                    case 'profesional': echo 'Estrategia visual avanzada para marketing.'; break;
-                  }
+                switch ($opt['id']) {
+                  case 'basica':
+                    echo 'Diseño con plantilla profesional, ideal para arrancar con rapidez y bajo inversión.';
+                    break;
+                  case 'personalizado':
+                    echo 'Diseño 100 % personalizado que refleja tu identidad de marca y garantiza diferenciación.';
+                    break;
+                  case 'profesional':
+                    echo 'Diseño profesional optimizado para marketing digital y conversión de usuarios.';
+                    break;
+                }
                 ?>
               </p>
               <?php if ($opt['price'] > 0): ?>
@@ -82,11 +84,17 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?php
-                  switch ($opt['id']) {
-                    case 'perfil': echo 'Página para mostrar datos del usuario.'; break;
-                    case 'login': echo 'Formulario de autenticación seguro.'; break;
-                    case 'busqueda': echo 'Resultados filtrados y ordenados.'; break;
-                  }
+                switch ($opt['id']) {
+                  case 'perfil':
+                    echo 'Página de perfil personalizada para presentar a tus clientes de forma clara.';
+                    break;
+                  case 'login':
+                    echo 'Formulario de acceso seguro con validación avanzada y UX amigable.';
+                    break;
+                  case 'busqueda':
+                    echo 'Motor de búsqueda dinámico con filtros personalizados y resultados en tiempo real.';
+                    break;
+                }
                 ?>
               </p>
               <div class="price">Q<?= number_format($opt['price'], 2); ?></div>
@@ -117,12 +125,20 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?php
-                  switch ($opt['id']) {
-                    case '50': echo 'Incluye hasta 50 productos.'; break;
-                    case '50-200': echo 'Entre 50 y 200 productos listos.'; break;
-                    case '200-500': echo 'Entre 200 y 500 productos disponibles.'; break;
-                    case '500-1000': echo 'Hasta 1000 productos cargados.'; break;
-                  }
+                switch ($opt['id']) {
+                  case '50':
+                    echo 'Catálogo inicial de hasta 50 productos listos para publicar.';
+                    break;
+                  case '50-200':
+                    echo 'Catálogo de 50–200 productos con carga y gestión completas.';
+                    break;
+                  case '200-500':
+                    echo 'Catálogo de 200–500 productos con control de inventario y categorías.';
+                    break;
+                  case '500-1000':
+                    echo 'Catálogo de hasta 1 000 productos con optimización de rendimiento.';
+                    break;
+                }
                 ?>
               </p>
               <?php if ($opt['price'] > 0): ?>
@@ -155,11 +171,17 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?php
-                  switch ($opt['id']) {
-                    case 'basico': echo 'Meta títulos, descripciones y URLs amigables.'; break;
-                    case 'intermedio': echo 'Optimización de imágenes y estructura H1–H2.'; break;
-                    case 'avanzado': echo 'Sitemap XML, robots.txt y schema markup.'; break;
-                  }
+                switch ($opt['id']) {
+                  case 'basico':
+                    echo 'Optimización básica: meta­títulos, meta­descripciones y URLs amigables para buscadores.';
+                    break;
+                  case 'intermedio':
+                    echo 'Añadido a básico: optimización de imágenes, encabezados semánticos y velocidad de carga.';
+                    break;
+                  case 'avanzado':
+                    echo 'Paquete completo: sitemap XML, robots.txt, datos estructurados (JSON‑LD) y auditoría on‑page.';
+                    break;
+                }
                 ?>
               </p>
               <?php if ($opt['price'] > 0): ?>
@@ -187,11 +209,17 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?php
-                  switch ($opt['id']) {
-                    case 'none': echo 'Ya cuentas con tu propia marca.'; break;
-                    case 'logo_basico': echo '3 variaciones y 5 iconos listos.'; break;
-                    case 'icono_profesional': echo 'Archivos PSD, AI, PDF y PNG incluidos.'; break;
-                  }
+                switch ($opt['id']) {
+                  case 'none':
+                    echo 'No requieres branding; usaremos tu imagen corporativa existente.';
+                    break;
+                  case 'logo_basico':
+                    echo 'Diseño de logo básico: 3 propuestas y entrega de 5 iconos en múltiples formatos.';
+                    break;
+                  case 'icono_profesional':
+                    echo 'Branding profesional: logo vectorial + manual de uso, con archivos AI, PSD, PDF y PNG.';
+                    break;
+                }
                 ?>
               </p>
               <?php if ($opt['price'] > 0): ?>
@@ -219,8 +247,8 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?= $opt['id'] === 'dominio'
-                    ? 'Registro anual de tu .com garantizado.'
-                    : 'Ya posees tu dominio registrado.'; ?>
+                    ? 'Registro y configuración de dominio .com por 1 año, DNS y SSL incluidos.'
+                    : 'No incluye dominio; se utilizará tu dominio actual.'; ?>
               </p>
               <?php if ($opt['price'] > 0): ?>
                 <div class="price">Q<?= number_format($opt['price'], 2); ?></div>
@@ -247,12 +275,20 @@
               <h2 class="option-title"><?= htmlspecialchars($opt['label']); ?></h2>
               <p class="option-desc">
                 <?php
-                  switch ($opt['id']) {
-                    case 'compartido': echo 'Hasta 10k visitas/mes en hosting básico.'; break;
-                    case 'profesional': echo 'Hasta 25k visitas/mes con buen rendimiento.'; break;
-                    case 'avanzado': echo 'Solución avanzada para hasta 50k visitas/mes.'; break;
-                    default: echo 'Ya tienes hosting propio.'; break;
-                  }
+                switch ($opt['id']) {
+                  case 'compartido':
+                    echo 'Hosting compartido para hasta 10 000 visitas mensuales con SSL gratis y backups semanales.';
+                    break;
+                  case 'profesional':
+                    echo 'Hosting profesional para hasta 25 000 visitas mensuales, optimizado en velocidad y seguridad.';
+                    break;
+                  case 'avanzado':
+                    echo 'Hosting avanzado: hasta 50 000 visitas mensuales, con CDN integrado y monitoreo 24/7.';
+                    break;
+                  default:
+                    echo 'No incluye hosting; se utilizará la infraestructura que ya poseas.';
+                    break;
+                }
                 ?>
               </p>
               <?php if ($opt['price'] > 0): ?>
@@ -263,14 +299,12 @@
         </div>
       </div>
 
-      <!-- Botones de navegación -->
       <div class="nav-buttons">
         <button type="button" class="btn btn-secondary" id="prevBtn">Anterior</button>
         <button type="button" class="btn" id="nextBtn">Siguiente</button>
       </div>
     </form>
   </div>
-
   <script src="/assets/js/options.js"></script>
 </body>
 </html>

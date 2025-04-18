@@ -1,3 +1,4 @@
+// app/views/client_info.php
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,14 +12,13 @@
 </head>
 <body>
   <div class="container">
-    <h1>Paso 3: Información de Cliente</h1>
+    <h1>Paso 3: Información del Cliente</h1>
     <div class="step-indicator">
       <div class="step">1. Tipo de Sitio</div>
       <div class="step">2. Detalles</div>
-      <div class="step active">3. Información de Cliente</div>
+      <div class="step active">3. Información del Cliente</div>
       <div class="step">4. Resultado</div>
     </div>
-
     <form method="post" action="/client-info">
       <div class="form-group">
         <label for="client_name">Nombre Completo</label>
@@ -29,10 +29,9 @@
         <input type="email" id="client_email" name="client[email]" required placeholder="tu@correo.com">
       </div>
       <div class="form-group">
-        <label for="client_phone">Teléfono</label>
+        <label for="client_phone">Teléfono de Contacto</label>
         <input type="tel" id="client_phone" name="client[phone]" placeholder="1234-5678">
       </div>
-
       <div class="nav-buttons">
         <a href="/options" class="btn btn-secondary">Anterior</a>
         <button type="submit" class="btn">Siguiente</button>
