@@ -5,9 +5,6 @@ namespace App\controllers;
 
 use App\models\Quote;
 
-// Asegúrate de que Composer y FPDF estén cargados
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 class PdfController
 {
     /**
@@ -15,14 +12,12 @@ class PdfController
      */
     public function generate()
     {
-        // Limpia cualquier salida previa para que FPDF no falle
-        if (ob_get_length()) {
+        // 1) Limpiar cualquier buffer de salida para evitar errores de FPDF
+        while (ob_get_level() > 0) {
             ob_end_clean();
         }
 
-        session_start();
-
-        // Validar que todo el flujo esté completo
+        // 2) Validar que la sesión ya está cargada y contiene lo necesario
         if (
             empty($_SESSION['site_type']) ||
             empty($_SESSION['options'])   ||
@@ -32,11 +27,11 @@ class PdfController
             exit;
         }
 
-        // Recuperar datos de sesión
+        // 3) Recuperar datos de sesión
         $client     = $_SESSION['client'];
         $optionsRaw = $_SESSION['options'];
 
-        // Calcular items y total
+        // 4) Calcular items y total
         $quoteModel = new Quote();
         $items      = $quoteModel->calculate(
             $_SESSION['site_type'],
@@ -44,15 +39,12 @@ class PdfController
         );
         $total = array_sum(array_column($items, 'price'));
 
-        // Obtener etiquetas de opciones
+        // 5) Extraer labels de las opciones
         $optsDef = $quoteModel->getOptions();
-
-        // Helper para extraer label
         $findLabel = function(string $group, $id) use ($optsDef): string {
             return $optsDef[$group][$id]['label'] ?? '';
         };
 
-        // Preparar labels de resumen
         $siteTypeLabel = [
             'informativa' => 'Página Informativa',
             'ecommerce'   => 'Página Ecommerce',
@@ -60,11 +52,15 @@ class PdfController
         ][$_SESSION['site_type']] ?? $_SESSION['site_type'];
 
         $designLabel   = $findLabel('design',          $optionsRaw['design'] ?? '');
-        $extrasLabels  = [];
-        if (!empty($optionsRaw['extras'])) {
-            foreach ($optionsRaw['extras'] as $eid) {
-                $lbl = $findLabel('extras', $eid);
-                if ($lbl) $extrasLabels[] = $lbl;
+        $seoLabel      = $findLabel('seo',             $optionsRaw['seo'] ?? '');
+        $brandingLabel = $findLabel('branding',        $optionsRaw['branding'] ?? '');
+        $domainLabel   = $findLabel('domain',          $optionsRaw['domain'] ?? '');
+        $hostingLabel  = $findLabel('hosting',         $optionsRaw['hosting'] ?? '');
+
+        $extrasLabels = [];
+        foreach (($optionsRaw['extras'] ?? []) as $eid) {
+            if ($lbl = $findLabel('extras', $eid)) {
+                $extrasLabels[] = $lbl;
             }
         }
         $extraPages    = (int)($optionsRaw['extra_pages'] ?? 0);
@@ -72,15 +68,10 @@ class PdfController
         $productsLabel = $findLabel('products_range',  $optionsRaw['products_range'] ?? '');
         $extraProducts = (int)($optionsRaw['extra_products'] ?? 0);
 
-        $seoLabel      = $findLabel('seo',             $optionsRaw['seo'] ?? '');
-        $brandingLabel = $findLabel('branding',        $optionsRaw['branding'] ?? '');
-        $domainLabel   = $findLabel('domain',          $optionsRaw['domain'] ?? '');
-        $hostingLabel  = $findLabel('hosting',         $optionsRaw['hosting'] ?? '');
-
-        // Codificar texto UTF-8 a ISO-8859-1 para FPDF
+        // 6) Función para convertir UTF-8 → ISO-8859-1 para FPDF
         $u = fn(string $text): string => mb_convert_encoding($text, 'ISO-8859-1', 'UTF-8');
 
-        // Crear PDF
+        // 7) Generar PDF
         $pdf = new \FPDF('P', 'mm', 'A4');
         $pdf->SetAutoPageBreak(true, 20);
         $pdf->AddPage();
@@ -98,10 +89,11 @@ class PdfController
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(0, 7, $u('Resumen de Selección'), 0, 1);
         $pdf->SetFont('Arial', '', 11);
+
         $pdf->Cell(0, 6, $u("Tipo de Sitio: {$siteTypeLabel}"), 0, 1);
         $pdf->Cell(0, 6, $u("Diseño: {$designLabel}"), 0, 1);
         if ($extrasLabels) {
-            $pdf->Cell(0, 6, $u('Extras Páginas: ' . implode(', ', $extrasLabels)), 0, 1);
+            $pdf->Cell(0, 6, $u('Extras Páginas: '.implode(', ', $extrasLabels)), 0, 1);
         }
         if ($extraPages > 0) {
             $pdf->Cell(0, 6, $u("Páginas Adicionales: {$extraPages}"), 0, 1);
@@ -123,26 +115,27 @@ class PdfController
         $pdf->Cell(130, 7, $u('Concepto'), 1, 0, 'C');
         $pdf->Cell(50, 7, $u('Precio (Q)'), 1, 1, 'C');
         $pdf->SetFont('Arial', '', 11);
+
         foreach ($items as $it) {
             $desc = $u($it['desc']);
             $pdf->MultiCell(130, 6, $desc, 1);
             $height = 6 * (substr_count($desc, "\n") + 1);
             $y = $pdf->GetY() - $height;
             $pdf->SetXY(140, $y);
-            $pdf->Cell(50, $height, 'Q' . number_format($it['price'], 2), 1, 1, 'R');
+            $pdf->Cell(50, $height, 'Q'.number_format($it['price'],2), 1, 1, 'R');
         }
 
         // Total
         $pdf->Ln(3);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(130, 7, $u('Total'), 1, 0, 'R');
-        $pdf->Cell(50, 7, 'Q' . number_format($total, 2), 1, 1, 'R');
+        $pdf->Cell(50, 7, 'Q'.number_format($total,2), 1, 1, 'R');
 
         // Términos y Condiciones
         $pdf->Ln(8);
-        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetFont('Arial','B',12);
         $pdf->Cell(0, 6, $u('Términos y Condiciones'), 0, 1);
-        $pdf->SetFont('Arial', '', 10);
+        $pdf->SetFont('Arial','',10);
         $policies = [
             'Cotización válida por 30 días desde la emisión.',
             'Pago inicial 50% para comenzar el proyecto.',
@@ -150,11 +143,11 @@ class PdfController
             'Extras fuera del alcance serán cotizados a parte.'
         ];
         foreach ($policies as $line) {
-            $pdf->MultiCell(0, 5, $u('• ' . $line), 0, 'L');
+            $pdf->MultiCell(0,5,$u('• '.$line),0,'L');
         }
 
-        // Salida PDF
-        $pdf->Output('D', 'cotizacion.pdf');
+        // Descargar PDF
+        $pdf->Output('D','cotizacion.pdf');
         exit;
     }
 }
