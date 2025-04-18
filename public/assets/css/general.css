@@ -7,7 +7,7 @@
   --white:             var(--color-base);                       /* Alias para --white usado en index.css :contentReference[oaicite:1]{index=1} */
   --color-secundario:  #2C3E50;   /* Azul oscuro */                /* :contentReference[oaicite:2]{index=2} */
   --texto:             var(--color-secundario);                 /* Mismo valor para --texto */      /* :contentReference[oaicite:3]{index=3} */
-  --color-acento:      #01070b;   /* Celeste / acento */            /* :contentReference[oaicite:4]{index=4} */
+  --color-acento:      #3498db;   /* Celeste / acento */            /* :contentReference[oaicite:4]{index=4} */
   --primary:           var(--color-acento);                    /* Alias para --primary usado en index.css :contentReference[oaicite:5]{index=5} */
 
   /* Espaciado y tamaños */
