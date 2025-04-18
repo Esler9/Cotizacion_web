@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paso 3: Información de Cliente</title>
-  <link rel="stylesheet" href="/assets/css/general.css">
-  <link rel="stylesheet" href="/assets/css/index.css">
-  <link rel="stylesheet" href="/assets/css/options.css">
-  <link rel="stylesheet" href="/assets/css/client_info.css">
+  <link rel="stylesheet" href="/assets/css/general.css?v=1.0">
+  <link rel="stylesheet" href="/assets/css/index.css?v=1.0">
+  <link rel="stylesheet" href="/assets/css/options.css?v=1.0">
+  <link rel="stylesheet" href="/assets/css/client_info.css?v=1.0">
 </head>
 <body>
   <div class="container">

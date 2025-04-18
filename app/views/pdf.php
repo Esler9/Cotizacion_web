@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paso 4: Resumen de Cotización</title>
-  <link rel="stylesheet" href="/assets/css/general.css">
-  <link rel="stylesheet" href="/assets/css/index.css">
-  <link rel="stylesheet" href="/assets/css/pdf.css">
-  <link rel="stylesheet" href="/assets/css/preview.css">
+  <link rel="stylesheet" href="/assets/css/general.css?v=1.0">
+  <link rel="stylesheet" href="/assets/css/index.css?v=1.0">
+  <link rel="stylesheet" href="/assets/css/pdf.css?v=1.0">
+  <link rel="stylesheet" href="/assets/css/preview.css?v=1.0">
 </head>
 <body>
   <div class="container">
