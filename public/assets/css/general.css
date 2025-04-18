@@ -26,15 +26,33 @@ body {
   line-height: 1.6;
 }
 
+/* public/assets/css/general.css */
+
+/* Contenedor principal */
 .container {
   width: 90%;
-  max-width: 1280px;
+  max-width: 960px;    /* Valor base */
   margin: var(--spacing) auto;
   padding: var(--spacing);
   background: var(--white);
   border-radius: var(--radius);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+/* En escritorios más anchos, hacemos la caja aún más amplia */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;  /* Nuevo ancho para pantallas grandes */
+  }
+}
+
+/* Y opcionalmente para pantallas ultra‑anchas */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1380px;
+  }
+}
+
 
 h1, h2 {
   margin-bottom: var(--spacing);
