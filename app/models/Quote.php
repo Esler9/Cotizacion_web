@@ -5,8 +5,8 @@ class Quote
 {
     // Precios base según tipo de sitio
     private const BASE_PRICES = [
-        'informativa' => 400,
-        'ecommerce'   => 800,
+        'informativa' => 899,
+        'ecommerce'   => 1499,
         'scalable'    => 3999
     ];
 
