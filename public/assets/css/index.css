@@ -67,6 +67,10 @@
   color: var(--white);
 }
 
+.options-grid input:checked + label p {
+  color: var(--white) !important;
+}
+
 /* Tipografía dentro de la tarjeta */
 .option-card h3 {
   font-size: 1.1rem;
@@ -80,5 +84,5 @@
 .option-card .price {
   font-weight: 600;
   font-size: 1rem;
-  text-align: right;
+  text-align: center;
 }
