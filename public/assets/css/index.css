@@ -60,6 +60,7 @@
   border-radius: var(--radius);
   cursor: pointer;
   transition: border 0.2s, background 0.2s;
+  background: blue;
 }
 .option-card:hover {
   border-color: var(--primary);
