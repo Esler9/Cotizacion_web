@@ -1,21 +1,26 @@
+/* Ocultar el radio button */
+input[type="radio"] {
+    display: none;
+}
+
 /* Paso 1: Tipo de Sitio */
 .step-indicator {
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--spacing);
-  }
-  .step {
+}
+.step {
     flex: 1;
     text-align: center;
     color: #aaa;
     position: relative;
     padding-bottom: 4px;
     font-size: 0.95em;
-  }
-  .step.active {
+}
+.step.active {
     color: var(--primary);
-  }
-  .step:not(:last-child)::after {
+}
+.step:not(:last-child)::after {
     content: '';
     position: absolute;
     right: -50%;
@@ -24,49 +29,54 @@
     height: 2px;
     background: #eee;
     z-index: -1;
-  }
-  
-  /* Grid de opciones */
-  .options-grid {
+}
+
+/* Grid de opciones: forzar tarjetas del mismo tamaño */
+.options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--spacing);
     margin-bottom: var(--spacing);
-  }
-  
-  /* Tarjeta de opción */
-  .option-card {
+}
+
+/* Tarjeta de opción */
+.option-card {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: var(--spacing);
     border: 1px solid #ddd;
     border-radius: var(--radius);
     cursor: pointer;
     transition: border 0.2s, background 0.2s;
-  }
-  .option-card:hover {
+    /* Aseguramos que la tarjeta ocupe la altura completa del grid */
+    height: 100%;
+}
+.option-card:hover {
     border-color: var(--primary);
     background: rgba(52,152,219,0.05);
-  }
-  .option-card input {
-    display: none;
-  }
-  input[type="radio"]:checked + .option-card {
+}
+
+/* Estado seleccionado: se aplica a la tarjeta y a todos sus descendientes */
+input[type="radio"]:checked + .option-card {
     border-color: var(--primary);
     background: #3498db; /* Fondo celeste */
     color: #fff; /* Letras blancas */
-  }
-  
-  .option-card h3 {
+}
+input[type="radio"]:checked + .option-card * {
+    color: #fff;
+}
+
+.option-card h3 {
     margin-bottom: 8px;
     font-size: 1.1em;
-  }
-  .option-card p {
+}
+.option-card p {
     flex: 1;
     font-size: 0.9em;
     color: #555;
-  }
-  .option-card .price {
+}
+.option-card .price {
     font-weight: 600;
     text-align: right;
-  }
+}
