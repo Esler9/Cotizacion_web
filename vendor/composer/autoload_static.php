@@ -24,6 +24,7 @@ class ComposerStaticInit0f8926a895504da74d81db03eb8eb7aa
         'App\\controllers\\ClientController' => __DIR__ . '/../..' . '/app/controllers/ClientController.php',
         'App\\controllers\\OptionsController' => __DIR__ . '/../..' . '/app/controllers/OptionsController.php',
         'App\\controllers\\PdfController' => __DIR__ . '/../..' . '/app/controllers/PdfController.php',
+        'App\\controllers\\PreviewController' => __DIR__ . '/../..' . '/app/controllers/PreviewController.php',
         'App\\controllers\\SiteTypeController' => __DIR__ . '/../..' . '/app/controllers/SiteTypeController.php',
         'App\\models\\Quote' => __DIR__ . '/../..' . '/app/models/Quote.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
