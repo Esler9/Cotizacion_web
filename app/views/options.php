@@ -17,7 +17,8 @@
     <div class="step-indicator">
       <div class="step">1. Tipo de Sitio</div>
       <div class="step active">2. Detalles</div>
-      <div class="step">3. Resultado</div>
+      <div class="step">3. Información de Cliente</div>
+      <div class="step">4. Resultado</div>
     </div>
 
     <form method="post" action="/options">

@@ -8,21 +8,21 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use App\controllers\SiteTypeController;
 use App\controllers\OptionsController;
+use App\controllers\ClientController;
 use App\controllers\PreviewController;
 use App\controllers\PdfController;
 
 session_start();
 
-// Detecta basePath (subdominio o subcarpeta)
-$script   = $_SERVER['SCRIPT_NAME'];              
-$basePath = rtrim(dirname($script), '/');         
+// Detecta el basePath dinámico
+$script   = $_SERVER['SCRIPT_NAME'];
+$basePath = rtrim(dirname($script), '/');
 $uri      = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $path     = ($basePath && strpos($uri, $basePath) === 0)
             ? substr($uri, strlen($basePath))
             : $uri;
 $path     = $path ?: '/';
 
-// Enrutamiento MVC
 switch ($path) {
     case '/':
     case '/index.php':
@@ -31,6 +31,10 @@ switch ($path) {
 
     case '/options':
         (new OptionsController())->show();
+        break;
+
+    case '/client-info':
+        (new ClientController())->show();
         break;
 
     case '/summary':
