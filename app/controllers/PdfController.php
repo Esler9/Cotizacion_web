@@ -1,9 +1,7 @@
 <?php
-// app/controllers/PdfController.php
 namespace App\controllers;
 
 use App\models\Quote;
-use setasign\Fpdf\Fpdf;
 
 class PdfController
 {
@@ -12,21 +10,21 @@ class PdfController
      */
     public function generate()
     {
-        // Asegura que el usuario completó pasos previos
+        // Validar flujo
         if (empty($_SESSION['site_type']) || empty($_SESSION['options'])) {
             header('Location: /');
             exit;
         }
 
-        // Calcula ítems de la cotización
+        // Calcular ítems
         $quote = new Quote();
         $items = $quote->calculate(
             $_SESSION['site_type'],
             $_SESSION['options']
         );
 
-        // Crear PDF
-        $pdf = new Fpdf();
+        // Instanciar FPDF (clase global)
+        $pdf = new \FPDF();
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 10, 'Cotización de Sitio Web', 0, 1, 'C');
@@ -45,7 +43,7 @@ class PdfController
         $pdf->Cell(140, 8, 'Total', 0, 0);
         $pdf->Cell(0, 8, 'Q' . number_format($total, 2), 0, 1, 'R');
 
-        // Enviar PDF al cliente (descarga forzada)
+        // Forzar descarga
         $pdf->Output('D', 'cotizacion.pdf');
         exit;
     }
