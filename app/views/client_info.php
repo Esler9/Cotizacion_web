@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/assets/css/general.css">
   <link rel="stylesheet" href="/assets/css/index.css">
   <link rel="stylesheet" href="/assets/css/options.css">
+  <link rel="stylesheet" href="/assets/css/client_info.css">
 </head>
 <body>
   <div class="container">
