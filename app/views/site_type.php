@@ -33,7 +33,7 @@
         <input type="radio" id="scalable" name="site_type" value="scalable" hidden>
         <label for="scalable" class="option-card">
           <h2 class="option-title">Sitio Web Escalable</h2>
-          <p class="option-desc">`Solución web escalable en Laravel, Vue.js y MySQL diseñada para impulsar tu crecimiento digital.`</p>
+          <p class="option-desc">Solución web escalable en Laravel, Vue.js y MySQL diseñada para impulsar tu crecimiento Empresarial.</p>
           <div class="price">Q3,999.00</div>
         </label>
       </div>
